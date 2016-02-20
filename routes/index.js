@@ -17,6 +17,8 @@ router.get(config.routes.info, function (req, res) {
 router.post(config.routes.start, function (req, res) {
   // Do something here to start the game
 
+
+
   // Response data
   var data = {
     taunt: config.snake.taunt.start
