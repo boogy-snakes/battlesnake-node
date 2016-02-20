@@ -16,20 +16,26 @@ module.exports = {
             distances[f].length = path.length;
           }
       }
-
-      var ourDistances = [];
-      for(var d in distances) {
-        if(distances[d].snake = config.snake.id) {
-          ourDistances.push({dist: d.length, loc:d});
-        }
-      }
-
-      ourDistances.sort((p, q) => { p.dist < q.dist });
-      var minDistance = ourDistances[0];
-      minDistance.loc = minDistance.loc.split(',');
-
-      data.target = { x: minDistance.loc[0], y: minDistance.loc[1] };
-      return data;
     }
+    
+    var ourDistances = [];
+    for(var d in distances) {
+      if(distances[d].snake = config.snake.id) {
+        ourDistances.push({dist: d.length, loc:d});
+      }
+    }
+
+    ourDistances.sort((p, q) => { p.dist < q.dist });
+
+    var minDistance = ourDistances[0];
+    if(minDistance) {
+      minDistance.loc = minDistance.loc.split(',');
+      data.target = { x: minDistance.loc[0], y: minDistance.loc[1] };
+    }
+    else {
+      throw "no food";
+    }
+
+    return data;
   }
 };
