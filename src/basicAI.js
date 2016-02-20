@@ -1,29 +1,34 @@
 // basic ai, just finds the closest food
+var findPath = require('./core').findPath;
+var config = require('./config.json');
 
 module.exports = {
   findClosestFood: function(data) {
-    // data
-    // {
-    //     "game": "hairy-cheese",
-    //     "mode": "advanced",
-    //     "turn": 0,
-    //     "height": 20,
-    //     "width": 30,
-    //     "snakes": [
-    //         <Snake Object>, <Snake Object>, ...
-    //     ],
-    //     "food": [],
-    //     "walls": [],  // Advanced Only
-    //     "gold": []    // Advanced Only
-          // "pmap": [[][][][]]...
-    // }
+    var distances = {};
 
-    // For each food
-      // For each snake
-        // get the distance to the food
-        // Run pathfinding using probability map with cutoff
-        // Store
+    for(var f of food) {
+      distances[f] = { snake: null, length: Infinity};
 
-    // Return food we have best chance of getting to first
+      for(var snake of snakes) {
+          var path = findPath(snake, f, data, 0.5);
+          if( path.length < distances[f].length) {
+            distances[f].snake = snake.id;
+            distances[f].length = path.length;
+          }
+      }
+
+      var ourDistances = [];
+      for(var d in distances) {
+        if(distances[d].snake = config.snake.id) {
+          ourDistances.push({dist: d.length, loc:d});
+        }
+      }
+
+      ourDistances.sort((p, q) => { p.dist < q.dist });
+      var minDistance = ourDistances[0];
+
+      data.target = { x: minDistance.loc[0], y: minDistance.loc[1] };
+      return data;
+    }
   }
 };
