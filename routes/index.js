@@ -1,7 +1,7 @@
 var config  = require('../config.json');
 var express = require('express');
 var router  = express.Router();
-var ai = require('../ai.js');
+// var ai = require('../ai.js');
 
 // Handle GET request to '/'
 router.get(config.routes.info, function (req, res) {
@@ -18,8 +18,6 @@ router.get(config.routes.info, function (req, res) {
 router.post(config.routes.start, function (req, res) {
   // Do something here to start the game
   var input = req.body;
-
-
 
   // Response data
   var data = {
