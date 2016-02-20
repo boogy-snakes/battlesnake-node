@@ -16,6 +16,7 @@ router.get(config.routes.info, function (req, res) {
 // Handle POST request to '/start'
 router.post(config.routes.start, function (req, res) {
   // Do something here to start the game
+  var input = req.body;
 
   // Response data
   var data = {
@@ -28,6 +29,7 @@ router.post(config.routes.start, function (req, res) {
 // Handle POST request to '/move'
 router.post(config.routes.move, function (req, res) {
   // Do something here to generate your move
+  var input = req.body;
 
   // Response data
   var data = {
@@ -45,7 +47,7 @@ router.post(config.routes.end, function (req, res) {
   // We don't need a response so just send back a 200
   res.status(200);
   res.end();
-  return;
+  return res.json();
 });
 
 
