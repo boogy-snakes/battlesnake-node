@@ -19,4 +19,3 @@ var target = {x: 7, y:4};
 dir = ps.direct(map, current, target, 0.3);
 
 console.log(dir);
-
