@@ -1,6 +1,8 @@
 
 // converts input into interesting stuff
 var Promise = require('bluebird');
+var config = require('../config.json');
+var _ = require('underscore');
 var toTest = {}
 
 function preprocessor(){
@@ -13,25 +15,6 @@ function preprocessor(){
 		console.log('In convertBoardToMap ');
 		console.log(reqMove.snakes[0].coords);
 		//dir is 0 (y) or 1 (x)
-		function addN(dir, prev, curr) {
-			var inity = prev[0];
-			var initx = prev[1];
-			var coordList = Array(Math.abs(prev[dir]-curr[dir]) + 1).fill(0);
-			coordList = coordList.map(function(value, index) {
-				return dir === 0 ? [index + inity, initx] : [inity, initx + index];
-			});
-			return coordList;
-		}
-		toTest.addN = addN;
-
-		function generateCoordinateList(prev, curr) {
-			if(prev[0] === curr[0]) {
-				return addN(1, prev, curr);
-			} else if (prev[1] === curr[1]) {
-				return addN(0, prev, curr);
-			}
-		}
-		toTest.generateCoordinateList = generateCoordinateList;
 
 		function changeCoordinate(board, coordList, type) {
 			return coordList.map(function(coordinate) {
@@ -42,19 +25,21 @@ function preprocessor(){
 
 
 		reqMove.snakes.forEach(function(snake){
-			console.log('Have snake' + snake)
+			function changeCoordinate(board, coordList, type) {
+				return coordList.map(function(coordinate) {
+					board[coordinate[0]][coordinate[1]] = type;
+				})
+			}
+			changeCoordinate(board, snake.coords, 1);
 			//put snake on board by looking at coords
-			snake.coords.forEach(function(curr, index, array){
-				if(index === 0) return;
-				var prev = array[index - 1];
-				console.log('prev : (' + prev + ')');
-				var coordList = generateCoordinateList(prev, curr);
-				console.log(coordList);
-				changeCoordinate(board, coordList, 1);
-				console.log(board);
-			});
+
 		});
 	}
+
+	function getOurSnake(reqMove) {
+		return _.where(reqMove.snakes, {id: config.snake.id};
+	}
+
 	toTest.convertBoardToMap = convertBoardToMap;
 
 	function init(reqStart) {
@@ -65,9 +50,11 @@ function preprocessor(){
 
 	return {
 		init: init,
-		// predict: function(in) {
-		//
-		// }
+		predict: function(reqMove) {
+			reqMove.pmap = convertBoardToMap(reqMove);
+			reqMove.current = getOurSnake(reqMove).coords[0].map(coord => {y: coord[0], x: coord[1]}); //The head of our snake
+			return reqMove;
+		}
 	}
 }
 var sampleSnakes = [
