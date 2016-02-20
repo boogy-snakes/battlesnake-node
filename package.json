@@ -17,7 +17,8 @@
     "express": "*",
     "morgan": "^1.6.1",
     "nodemon": "*",
-    "pathfinding": "^0.4.17"
+    "pathfinding": "^0.4.17",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {},
   "main": "index.js",
