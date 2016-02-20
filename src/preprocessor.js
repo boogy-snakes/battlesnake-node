@@ -7,13 +7,16 @@ function preprocessor(){
 
 	var size = {x:0, y:0};
 	var board = [[]];
+	toTest.board = board;
 
 	function convertBoardToMap(reqMove) {
+		console.log('In convertBoardToMap ');
+		console.log(reqMove.snakes[0].coords);
 		//dir is 0 (y) or 1 (x)
 		function addN(dir, prev, curr) {
-			var inity = curr[0];
-			var initx = curr[1];
-			var coordList = Array(Math.abs(prev[dir]-curr[dir])).fill(0);
+			var inity = prev[0];
+			var initx = prev[1];
+			var coordList = Array(Math.abs(prev[dir]-curr[dir]) + 1).fill(0);
 			coordList = coordList.map(function(value, index) {
 				return dir === 0 ? [index + inity, initx] : [inity, initx + index];
 			});
@@ -38,13 +41,17 @@ function preprocessor(){
 		toTest.changeCoordinate = changeCoordinate;
 
 
-		reqMove.snakes.reduce(function(snake){
+		reqMove.snakes.forEach(function(snake){
+			console.log('Have snake' + snake)
 			//put snake on board by looking at coords
 			snake.coords.forEach(function(curr, index, array){
 				if(index === 0) return;
 				var prev = array[index - 1];
+				console.log('prev : (' + prev + ')');
 				var coordList = generateCoordinateList(prev, curr);
+				console.log(coordList);
 				changeCoordinate(board, coordList, 1);
+				console.log(board);
 			});
 		});
 	}
@@ -57,10 +64,10 @@ function preprocessor(){
 	}
 
 	return {
-		init: init;
-		predict: function(in) {
-
-		}
+		init: init,
+		// predict: function(in) {
+		//
+		// }
 	}
 }
 var sampleSnakes = [
@@ -87,7 +94,7 @@ var sampleReq = {
 		"width": 30,
 		"snakes": sampleSnakes,
 		"food": [
-				[1, 2], [9, 3], ...
+				[1, 2], [9, 3]
 		],
 		// "walls": [    // Advanced Only
 		//     [2, 2]
@@ -96,8 +103,8 @@ var sampleReq = {
 		//     [5, 5]
 		// ]
 }
-
 //Testing
-preprocessor.init(sampleReq);
+preprocessor().init(sampleReq);
 toTest.convertBoardToMap(sampleReq);
+console.log(toTest.board);
 module.exports = preprocessor;
