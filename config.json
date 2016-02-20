@@ -8,6 +8,7 @@
     "end": "/end"
   },
   "snake" : {
+    "id": "b475914e-61a4-45bf-bfd9-a31486e398d0",
     "name": "battlesnake-node",
     "color": "#ffffff",
     "head_url": "http://i.imgur.com/b7CbH5x.png",
