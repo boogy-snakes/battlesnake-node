@@ -32,5 +32,10 @@ var data = {
   ]
 };
 
-var data = findClosestFood(data);
-console.log(data.target);
+try {
+  var data = findClosestFood(data);
+  console.log(data.target);
+}
+catch(e) {
+  console.log(e);
+}
