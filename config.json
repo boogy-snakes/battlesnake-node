@@ -8,6 +8,7 @@
     "end": "/end"
   },
   "snake" : {
+    "id": "b475914e-61a4-45bf-bfd9-a31486e398d0",
     "name": "battlesnake-node",
     "color": "#fff000",
     "head_url": "http://battlesnake-node.herokuapp.com/",
