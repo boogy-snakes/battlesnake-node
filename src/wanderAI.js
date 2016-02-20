@@ -10,6 +10,9 @@ module.exports = function(data) {
   var z = 0;
   while(z < 0.5) {
     y--;
+    if (y < 0 || y > data.height) {
+      break;
+    }
     z = pmap[y][x];
     distances.n++;
   }
@@ -20,6 +23,9 @@ module.exports = function(data) {
   z = 0;
   while(z < 0.5) {
     x++;
+    if (x < 0 || x > data.width) {
+      break;
+    }
     z = pmap[y][x];
     distances.e++;
   }
@@ -30,6 +36,9 @@ module.exports = function(data) {
   z = 0;
   while(z < 0.5) {
     y++;
+    if (y < 0 || y > data.height) {
+      break;
+    }
     z = pmap[y][x];
     distances.s++;
   }
@@ -40,12 +49,17 @@ module.exports = function(data) {
   z = 0;
   while(z < 0.5) {
     x--;
+    if (x < 0 || x > data.width) {
+      break;
+    }
     z = pmap[y][x];
     distances.w++;
   }
 
   // Get maximum distance in distances
-  var direction = Object.keys(obj).reduce((a, b) => {obj[a] > obj[b] ? a : b });
+  var direction = Object.keys(distances).reduce(function(a, b) {
+    return distances[a] > distances[b] ? a : b
+  });
 
   switch(direction){
   case "n":
