@@ -1,6 +1,7 @@
 var config  = require('../config.json');
 var express = require('express');
 var router  = express.Router();
+var ai = require('../ai.js');
 
 // Handle GET request to '/'
 router.get(config.routes.info, function (req, res) {
