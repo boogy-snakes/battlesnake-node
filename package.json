@@ -12,10 +12,12 @@
     }
   ],
   "dependencies": {
+    "bluebird": "^3.3.1",
     "body-parser": "^1.14.1",
     "express": "*",
     "morgan": "^1.6.1",
-    "nodemon": "*"
+    "nodemon": "*",
+    "pathfinding": "^0.4.17"
   },
   "devDependencies": {},
   "main": "index.js",
