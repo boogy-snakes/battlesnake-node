@@ -48,7 +48,7 @@ function preprocessor(){
 
 	function predict(reqMove) {
 		reqMove.pmap = convertBoardToMap(reqMove);
-		var ourCoords = getOurSnake(reqMove).coords; //The head of our snake
+		var ourCoords = getOurSnake(reqMove).coords[0]; //The head of our snake
 		reqMove.current = {y: ourCoords[0], x: ourCoords[1]};
 		return reqMove;
 	}
