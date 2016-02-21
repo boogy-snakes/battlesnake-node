@@ -15,14 +15,14 @@ function preprocessor(){
 
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
-				board[coordinate[0]][coordinate[1]] = type;
+				board[coordinate[1]][coordinate[0]] = type;
 			})
 		}
-
 		function shortenSnakes() {
 
 		}
 
+		toTest.changeCoordinate = changeCoordinate;
 		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
 		});
@@ -55,7 +55,7 @@ function preprocessor(){
 	function predict(reqMove) {
 		reqMove.pmap = convertBoardToMap(reqMove);
 		var ourCoords = getOurSnake(reqMove).coords[0]; //The head of our snake
-		reqMove.current = {y: ourCoords[0], x: ourCoords[1]};
+		reqMove.current = {y: ourCoords[1], x: ourCoords[0]};
 		return reqMove;
 	}
 
