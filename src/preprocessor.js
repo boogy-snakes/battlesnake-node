@@ -33,7 +33,8 @@ function preprocessor(){
 	}
 
 	function getOurSnake(reqMove) {
-		return _.where(reqMove.snakes, {id: config.snake.id});
+		var snake = _.where(reqMove.snakes, {id: config.snake.id});
+		return snake[0];
 	}
 
 	toTest.convertBoardToMap = convertBoardToMap;
@@ -58,7 +59,7 @@ function preprocessor(){
 }
 var sampleSnakes = [
 			{
-			"id": "1234-567890-123456-7890",
+			"id": "b475914e-61a4-45bf-bfd9-a31486e398d0",
 			"name": "Well Documented Snake",
 			"status": "alive",
 			"message": "Moved north",
