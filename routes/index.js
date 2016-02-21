@@ -4,7 +4,7 @@ var router  = express.Router();
 
 var pre = require('../src/preprocessor.js')();
 var ai = require('../src/topAI.js');
-var post = require('../src/postProcessor.js')();
+var post = require('../src/postprocessor.js')();
 
 // Handle GET request to '/'
 router.get(config.routes.info, function (req, res) {
