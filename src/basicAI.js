@@ -26,9 +26,7 @@ module.exports = {
     }
 
     ourDistances = ourDistances.sort(function(p, q) {
-      console.dir(p);
-      console.dir(q);
-      return p.dist < q.dist
+      return p.dist > q.dist
     });
     console.log(ourDistances);
 
