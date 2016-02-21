@@ -44,7 +44,7 @@ function preprocessor(){
 		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
 	}
 
-	function predict() {
+	function predict(reqMove) {
 		reqMove.pmap = convertBoardToMap(reqMove);
 		var ourCoords = getOurSnake(reqMove).coords; //The head of our snake
 		reqMove.current = {y: ourCoords[0], x: ourCoords[1]};
@@ -53,7 +53,7 @@ function preprocessor(){
 
 	return {
 		init: init,
-		predict: predict;
+		predict: predict
 	}
 }
 var sampleSnakes = [
