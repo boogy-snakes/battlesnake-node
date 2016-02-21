@@ -39,7 +39,6 @@ router.post(config.routes.move, function (req, res) {
   var input = req.body;
   var processed = pre.predict(input);
   processed = ai(processed);
-  console.log(processed);
 
   processed.cutoff = 0.5
 

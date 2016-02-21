@@ -1,5 +1,4 @@
 module.exports = function(data) {
-  console.log("in wander");
   var current = data.current;
   var pmap = data.pmap;
 
@@ -17,7 +16,6 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.n++;
   }
-  console.log(0);
   // Calculate east distance
   x = current.x;
   y = current.y;
@@ -30,7 +28,6 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.e++;
   }
-  console.log(1);
   // Calculate south distance
   x = current.x;
   y = current.y;
@@ -43,7 +40,6 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.s++;
   }
-  console.log(2);
   // Calculate west distance
   x = current.x;
   y = current.y;
@@ -56,7 +52,6 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.w++;
   }
-  console.log(distances);
   // Get maximum distance in distances
   var direction = Object.keys(distances).reduce(function(a, b) {
     return distances[a] > distances[b] ? a : b
@@ -76,9 +71,7 @@ module.exports = function(data) {
     data.target = {x: current.x-1, y: current.y};
     break;
   default:
-    console.log("uh oh");
   }
-  console.log("end of wander");
 
   return data;
 };
