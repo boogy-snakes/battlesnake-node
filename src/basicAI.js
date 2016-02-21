@@ -25,7 +25,11 @@ module.exports = {
       }
     }
 
-    ourDistances = ourDistances.sort((p, q) => { p.dist < q.dist });
+    ourDistances = ourDistances.sort(function(p, q) {
+      console.dir(p);
+      console.dir(q);
+      return p.dist < q.dist
+    });
     console.log(ourDistances);
 
     var minDistance = ourDistances[0];
