@@ -4,6 +4,7 @@ var food = require('./basicAI.js').findClosestFood;
 var wander = require('./wanderAI.js');
 
 module.exports = function(processed){
+	console.log(wander);
 	try{
 		return food(processed);
 	}
