@@ -92,9 +92,9 @@ var sampleReq = {
 		// ]
 }
 //Testing
-var preprocessor = preprocessor();
-preprocessor.init(sampleReq);
-preprocessor.predict(sampleReq);
-
-toTest.convertBoardToMap(sampleReq);
+// var preprocessor = preprocessor();
+// preprocessor.init(sampleReq);
+// preprocessor.predict(sampleReq);
+//
+// toTest.convertBoardToMap(sampleReq);
 module.exports = preprocessor;
