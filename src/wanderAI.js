@@ -1,4 +1,5 @@
 module.exports = function(data) {
+  console.log("in wander");
   var current = data.current;
   var pmap = data.pmap;
 
@@ -16,7 +17,7 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.n++;
   }
-
+  console.log(0);
   // Calculate east distance
   x = current.x;
   y = current.y;
@@ -29,7 +30,7 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.e++;
   }
-
+  console.log(1);
   // Calculate south distance
   x = current.x;
   y = current.y;
@@ -42,7 +43,7 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.s++;
   }
-
+  console.log(2);
   // Calculate west distance
   x = current.x;
   y = current.y;
