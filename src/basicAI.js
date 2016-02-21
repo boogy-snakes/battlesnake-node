@@ -1,6 +1,7 @@
 // basic ai, just finds the closest food
 var findPath = require('./core').findPath;
 var config = require('../config.json');
+var _ = require('underscore');
 
 module.exports = {
   findClosestFood: function(data) {
@@ -25,9 +26,10 @@ module.exports = {
       }
     }
 
-    ourDistances = ourDistances.sort(function(p, q) {
-      return p.dist > q.dist
-    });
+    ourDistance = _.sortBy(ourDistances, "dist");
+    // ourDistances = ourDistances.sort(function(p, q) {
+    //   return p.dist > q.dist
+    // });
     console.log(ourDistances);
 
     var minDistance = ourDistances[0];
