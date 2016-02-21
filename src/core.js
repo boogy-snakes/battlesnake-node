@@ -22,7 +22,7 @@ module.exports = {
 
       // Calculate path
       var path = finder.findPath(current[0], current[1], target[0], target[1], grid);
-
+      console.log(path);
     return path;
   }
 }
