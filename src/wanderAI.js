@@ -74,6 +74,8 @@ module.exports = function(data) {
   case "w":
     data.target = {x: current.x-1, y: current.y};
     break;
+  default:
+    console.log("uh oh");
   }
 
   return data;
