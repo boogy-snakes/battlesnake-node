@@ -12,22 +12,30 @@ function preprocessor(){
 	toTest.board = board;
 
 	function convertBoardToMap(reqMove) {
-		console.log('In convertBoardToMap ');
-		console.log('Coordinate of first snake : ' + reqMove.snakes[0].coords);
 
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
 				board[coordinate[0]][coordinate[1]] = type;
 			})
 		}
-		toTest.changeCoordinate = changeCoordinate;
-		console.log('Board before move : ')
-		console.log(board);
+
+		function shortenSnakes() {
+
+		}
+
 		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
-			//put snake on board by looking at coords
 		});
-		console.log(board);
+
+		reqMove.snakes.forEach(function(snake) {
+			shortenSnakes(board, snake.coords, 1);
+		});
+
+		reqMove.snakes.forEach(function(snake) {
+			changeCoordinate(board, reqMove.walls, 1)
+		});
+
+		// console.log(board);
 		return board;
 	}
 
@@ -82,12 +90,12 @@ var sampleReq = {
 		"food": [
 				[1, 2], [9, 3]
 		],
-		// "walls": [    // Advanced Only
-		//     [2, 2]
-		// ],
-		// "gold": [     // Advanced Only
-		//     [5, 5]
-		// ]
+		"walls": [    // Advanced Only
+		    [2, 2]
+		],
+		"gold": [     // Advanced Only
+		    [5, 5]
+		]
 }
 //Testing
 // var preprocessor = preprocessor();
