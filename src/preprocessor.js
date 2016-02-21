@@ -18,8 +18,26 @@ function preprocessor(){
 				board[coordinate[1]][coordinate[0]] = type;
 			})
 		}
-		function shortenSnakes() {
 
+		function distance(coord1, coord2) {
+			//y distance + x distance
+			return Math.abs(coord1[0] - coord2[0]) + Math.abs(coord1[1] - coord2[1]);
+		}
+
+		function shortenSnake(board, snake, type) {
+				var coordList = snake.coords.filter(function(coord, index, array) {
+					//distance starts at 1 for nearest neighbour
+					var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
+				 	if(willDisappear) {
+						return true;
+					} else {
+						return false;
+					}
+				});
+
+				coordList.forEach(function(coordinate) {
+					board[coordinate[1]][coordinate[0]] = type;
+				});
 		}
 
 		toTest.changeCoordinate = changeCoordinate;
@@ -28,7 +46,7 @@ function preprocessor(){
 		});
 
 		reqMove.snakes.forEach(function(snake) {
-			shortenSnakes(board, snake.coords, 1);
+			shortenSnake(board, snake.coords, 1);
 		});
 
 		// console.log(board);
@@ -49,9 +67,9 @@ function preprocessor(){
 	}
 
 	function predict(reqMove) {
-		reqMove.pmap = convertBoardToMap(reqMove);
 		var ourCoords = getOurSnake(reqMove).coords[0]; //The head of our snake
 		reqMove.current = {y: ourCoords[1], x: ourCoords[0]};
+		reqMove.pmap = convertBoardToMap(reqMove);
 		return reqMove;
 	}
 
