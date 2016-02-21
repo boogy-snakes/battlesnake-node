@@ -29,6 +29,7 @@ function preprocessor(){
 			changeCoordinate(board, snake.coords, 1);
 			//put snake on board by looking at coords
 		});
+		return board;
 		// console.log(board);
 	}
 
