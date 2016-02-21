@@ -12,7 +12,7 @@ function preprocessor(){
 	toTest.board = board;
 
 	function convertBoardToMap(reqMove) {
-
+		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
 				board[coordinate[1]][coordinate[0]] = type;
@@ -29,10 +29,6 @@ function preprocessor(){
 
 		reqMove.snakes.forEach(function(snake) {
 			shortenSnakes(board, snake.coords, 1);
-		});
-
-		reqMove.snakes.forEach(function(snake) {
-			changeCoordinate(board, reqMove.walls, 1)
 		});
 
 		// console.log(board);
