@@ -13,24 +13,22 @@ function preprocessor(){
 
 	function convertBoardToMap(reqMove) {
 		console.log('In convertBoardToMap ');
-		console.log(reqMove.snakes[0].coords);
-		//dir is 0 (y) or 1 (x)
+		console.log('Coordinate of first snake : ' + reqMove.snakes[0].coords);
 
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
-				// console.log(coordinate);
 				board[coordinate[0]][coordinate[1]] = type;
-				// console.log(board);
 			})
 		}
 		toTest.changeCoordinate = changeCoordinate;
-
-		reqMove.snakes.forEach(function(snake){
+		console.log('Board before move : ')
+		console.log(board);
+		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
 			//put snake on board by looking at coords
 		});
+		console.log(board);
 		return board;
-		// console.log(board);
 	}
 
 	function getOurSnake(reqMove) {
