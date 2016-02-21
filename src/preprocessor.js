@@ -15,7 +15,7 @@ function preprocessor(){
 
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
-				board[coordinate[0]][coordinate[1]] = type;
+				board[coordinate[1]][coordinate[0]] = type;
 			})
 		}
 		toTest.changeCoordinate = changeCoordinate;
