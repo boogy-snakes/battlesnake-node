@@ -11,7 +11,7 @@ module.exports = function(data) {
   var z = 0;
   while(z < 0.5) {
     y--;
-    if (y < 0 || y > data.height) {
+    if (y < 0 || y > data.height-1) {
       break;
     }
     z = pmap[y][x];
@@ -24,7 +24,7 @@ module.exports = function(data) {
   z = 0;
   while(z < 0.5) {
     x++;
-    if (x < 0 || x > data.width) {
+    if (x < 0 || x > data.width-1) {
       break;
     }
     z = pmap[y][x];
@@ -37,7 +37,7 @@ module.exports = function(data) {
   z = 0;
   while(z < 0.5) {
     y++;
-    if (y < 0 || y > data.height) {
+    if (y < 0 || y > data.height-1) {
       break;
     }
     z = pmap[y][x];
@@ -50,7 +50,7 @@ module.exports = function(data) {
   z = 0;
   while(z < 0.5) {
     x--;
-    if (x < 0 || x > data.width) {
+    if (x < 0 || x > data.width-1) {
       break;
     }
     z = pmap[y][x];
