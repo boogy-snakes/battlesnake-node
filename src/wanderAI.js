@@ -55,7 +55,7 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.w++;
   }
-
+  console.log(distances);
   // Get maximum distance in distances
   var direction = Object.keys(distances).reduce(function(a, b) {
     return distances[a] > distances[b] ? a : b
@@ -77,6 +77,7 @@ module.exports = function(data) {
   default:
     console.log("uh oh");
   }
+  console.log("end of wander");
 
   return data;
 };
