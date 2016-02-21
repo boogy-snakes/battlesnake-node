@@ -38,7 +38,8 @@ router.post(config.routes.move, function (req, res) {
   // Do something here to generate your move
   var input = req.body;
   var processed = pre.predict(input);
-  console.dir(processed);
+  console.log(processed);
+  console.log(processed.snakes[0].coords);
   processed = ai(processed);
   console.log(processed);
 
