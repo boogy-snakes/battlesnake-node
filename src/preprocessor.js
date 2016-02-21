@@ -14,7 +14,6 @@ function preprocessor(){
 	function convertBoardToMap(reqMove) {
 		console.log('In convertBoardToMap ');
 		console.log('Coordinate of first snake : ' + reqMove.snakes[0].coords);
-		//dir is 0 (y) or 1 (x)
 
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
@@ -23,7 +22,7 @@ function preprocessor(){
 		}
 		toTest.changeCoordinate = changeCoordinate;
 		console.log('Board before move : ')
-		consoel.log(board);
+		console.log(board);
 		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
 			//put snake on board by looking at coords
