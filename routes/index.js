@@ -38,8 +38,6 @@ router.post(config.routes.move, function (req, res) {
   // Do something here to generate your move
   var input = req.body;
   var processed = pre.predict(input);
-  console.log(processed);
-  console.log(processed.snakes[0].coords);
   processed = ai(processed);
   console.log(processed);
 
@@ -50,7 +48,6 @@ router.post(config.routes.move, function (req, res) {
     move: post.direct(processed.pmap, processed.current, processed.target, processed.cutoff), // one of: ["north", "east", "south", "west"]
     taunt: config.snake.taunt.move
   };
-  console.log(data.move);
 
   return res.json(data);
 });
