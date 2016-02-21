@@ -26,7 +26,7 @@ module.exports = {
       }
     }
 
-    ourDistance = _.sortBy(ourDistances, "dist");
+    ourDistances = _.sortBy(ourDistances, "dist");
     // ourDistances = ourDistances.sort(function(p, q) {
     //   return p.dist > q.dist
     // });
