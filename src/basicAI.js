@@ -22,7 +22,7 @@ module.exports = {
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake = config.snake.id) {
-        ourDistances.push({dist: d.length, loc:d});
+        ourDistances.push({dist: distances[d].length, loc:d});
       }
     }
 
