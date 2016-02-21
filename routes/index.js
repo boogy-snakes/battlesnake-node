@@ -37,9 +37,8 @@ router.post(config.routes.start, function (req, res) {
 router.post(config.routes.move, function (req, res) {
   // Do something here to generate your move
   var input = req.body;
-
   var processed = pre.predict(input);
-  console.log(processed);
+  console.dir(processed);
   processed = ai(processed);
   console.log(processed);
 
