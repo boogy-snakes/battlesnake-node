@@ -28,9 +28,11 @@ function preprocessor(){
 			console.dir(snake)
 			console.dir(type)
 
-			var coordList = snake.coords.filter(function(coord, index, array) {
+			var ourCoords = getOurSnake(reqMove).coords[0];
+
+			var coordList = snake.filter(function(coord, index, array) {
 				//distance starts at 1 for nearest neighbour
-				var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
+				var willDisappear = distance(ourCoords, coord) >= array.length - index + 1;
 			 	if(willDisappear) {
 					return true;
 				} else {
