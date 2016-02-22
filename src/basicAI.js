@@ -53,6 +53,8 @@ module.exports = {
 
     ourDistances = _.sortBy(ourDistances, "dist");
 
+    console.log(ourDistances);
+
     var minDistance = ourDistances[0];
     if(minDistance) {
       minDistance.loc = minDistance.loc.split(',');
