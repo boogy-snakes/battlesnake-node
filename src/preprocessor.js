@@ -59,7 +59,7 @@ function preprocessor(){
 			shortenSnake(board, snake.coords, 0);
 		});
 
-		conole.log('snakes shortened')
+		console.log('snakes shortened')
 
 		// console.log(board);
 		return board;
