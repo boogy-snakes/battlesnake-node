@@ -13,8 +13,6 @@ module.exports = {
       for(var snake of data.snakes) {
           var path = findPath(snake.coords[0], f, data, 0.5);
 
-          console.log(path.length, distances[f].length, snake.coords.length, distances[f].snakeLength);
-          
           if(path.length == distances[f].length) {
             console.log("path lengths equal")
               if(snake.coords.length > distances[f].snakeLength) {
@@ -41,7 +39,6 @@ module.exports = {
       }
     }
 
-    console.dir(distances);
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake == config.snake.id) {
@@ -54,8 +51,6 @@ module.exports = {
     }
 
     ourDistances = _.sortBy(ourDistances, "dist");
-
-    console.log(ourDistances);
 
     var minDistance = ourDistances[0];
     if(minDistance) {
