@@ -21,7 +21,6 @@ module.exports  = function(){
 		direct: function(map, current, target, cutoff) {
 			
 			var grid = new pf.Grid(size.x, size.y); 
-
 			for(var x = 0; x < size.x; x++) {
 				for(var y = 0; y < size.y; y++) {
 					if(map[y][x] > cutoff) {
@@ -31,6 +30,20 @@ module.exports  = function(){
 			}
 
 			var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
+
+			// no path found, choose an open direction?
+			if(path.length == 0) {
+				if(current.x + 1  < size.x && map[current.y][current.x + 1] != 1) {
+					return "east";
+				}
+				if(current.x - 1  >= 0  && map[current.y][current.x - 1] != 1) {
+					return "west";
+				}
+				if(current.y + 1  < size.y && map[current.y + 1][current.x] != 1) {
+					return "south";
+				}
+				return "north";
+			}
 
 			var next = path[1];
 

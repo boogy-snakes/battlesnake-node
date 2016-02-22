@@ -28,6 +28,8 @@ function preprocessor(){
 
 			var coordList = snake.filter(function(coord, index, array) {
 				//distance starts at 1 for nearest neighbour
+
+				//+1 to buffer on whether the snake eats food soon
 				var willDisappear = distance(ourCoords, coord) >= array.length - index + 1;
 			 	if(willDisappear) {
 					return true;
@@ -47,8 +49,6 @@ function preprocessor(){
 			changeCoordinate(board, snake.coords, 1);
 		});
 
-		console.log(board);
-		
 		console.log('shorten snakes')
 
 		reqMove.snakes.forEach(function(snake) {
