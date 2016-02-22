@@ -47,29 +47,39 @@ function preprocessor(){
 			if(snake.id == config.snake.id)
 				return;
 
+			console.log(x,y);
+
 			var x = snake.coords[0][0];
 			var y = snake.coords[0][1];
 			if(x + 1 < size.x){
 				board[y][x + 1] += type;
 			}
+			console.log(1)
 			if(x - 1 >= 0){
 				board[y][x - 1] += type;
 			}
+			console.log(2)
 			if(y + 1 < size.y){
 				board[y + 1][x] += type;
 			}
+			console.log(3)
 			if(y - 1 >= 0){
 				board[y - 1][x] += type;
 			}
+			console.log(4)
 
 			if(x + 1 < size.x && y + 1 < size.y)
 				board[y + 1][x + 1] += type;
+			console.log(5)
 			if(x + 1 < size.x && y - 1 < size.y)
 				board[y - 1][x + 1] += type;
+			console.log(6)
 			if(x - 1 < size.x && y + 1 < size.y)
 				board[y + 1][x - 1] += type;
+			console.log(7)
 			if(x - 1 < size.x && y - 1 < size.y)
 				board[y - 1][x - 1] += type;
+			console.log(8)
 
 		}
 
@@ -87,7 +97,7 @@ function preprocessor(){
 
 		console.log('add head probabilities')
 		reqMove.snakes.forEach(function(snake) {
-			addHeadProbabilities(board, snake.coords, 0.3);
+			addHeadProbabilities(board, snake, 0.3);
 		});
 
 		console.log(board);
