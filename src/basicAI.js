@@ -15,19 +15,22 @@ module.exports = {
 
           console.log(path.length, distances[f].length, snake.coords.length, distances[f].snakeLength);
           
-          if(path.length === distances[f].length) {
-
+          if(path.length == distances[f].length) {
+            console.log("path lengths equal")
               if(snake.coords.length > distances[f].snakeLength) {
+                console.log('length difference')
                   distances[f].snake = snake.id;
                   distances[f].length = path.length;
                   distances[f].snakeLength = snake.coords.length;
               } else if(distances[f].snake == config.snake.id) {
+                  console.log('our snake should avoid it')
                   distances[f].snake = snake.id;
                   distances[f].length = path.length;
                   distances[f].snakeLength = snake.coords.length;
               }
 
           } else if( path.length < distances[f].length) {
+            console.log('difference in lengths')
             distances[f].snake = snake.id;
             distances[f].length = path.length;
             distances[f].snakeLength = snake.coords.length;
