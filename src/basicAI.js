@@ -27,7 +27,7 @@ module.exports = {
           }
       }
     }
-    
+
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake = config.snake.id) {
@@ -35,7 +35,7 @@ module.exports = {
       }
     }
 
-    ourDistances.sort((p, q) => { p.dist < q.dist });
+    ourDistances = ourDistances.sort((p, q) => { p.dist < q.dist });
 
     var minDistance = ourDistances[0];
     if(minDistance) {

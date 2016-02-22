@@ -12,25 +12,45 @@ function preprocessor(){
 	toTest.board = board;
 
 	function convertBoardToMap(reqMove) {
-		console.log('In convertBoardToMap ');
-		console.log(reqMove.snakes[0].coords);
-		//dir is 0 (y) or 1 (x)
-
+		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
-				// console.log(coordinate);
-				board[coordinate[0]][coordinate[1]] = type;
-				// console.log(board);
+				board[coordinate[1]][coordinate[0]] = type;
 			})
 		}
-		toTest.changeCoordinate = changeCoordinate;
 
-		reqMove.snakes.forEach(function(snake){
+		function distance(coord1, coord2) {
+			//y distance + x distance
+			return Math.abs(coord1[0] - coord2[0]) + Math.abs(coord1[1] - coord2[1]);
+		}
+
+		function shortenSnake(board, snake, type) {
+				var coordList = snake.coords.filter(function(coord, index, array) {
+					//distance starts at 1 for nearest neighbour
+					var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
+				 	if(willDisappear) {
+						return true;
+					} else {
+						return false;
+					}
+				});
+
+				coordList.forEach(function(coordinate) {
+					board[coordinate[1]][coordinate[0]] = type;
+				});
+		}
+
+		toTest.changeCoordinate = changeCoordinate;
+		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
-			//put snake on board by looking at coords
 		});
-		return board;
+
+		reqMove.snakes.forEach(function(snake) {
+			shortenSnake(board, snake.coords, 1);
+		});
+
 		// console.log(board);
+		return board;
 	}
 
 	function getOurSnake(reqMove) {
@@ -47,9 +67,9 @@ function preprocessor(){
 	}
 
 	function predict(reqMove) {
+		var ourCoords = getOurSnake(reqMove).coords[0]; //The head of our snake
+		reqMove.current = {y: ourCoords[1], x: ourCoords[0]};
 		reqMove.pmap = convertBoardToMap(reqMove);
-		var ourCoords = getOurSnake(reqMove).coords; //The head of our snake
-		reqMove.current = {y: ourCoords[0], x: ourCoords[1]};
 		return reqMove;
 	}
 
@@ -84,12 +104,12 @@ var sampleReq = {
 		"food": [
 				[1, 2], [9, 3]
 		],
-		// "walls": [    // Advanced Only
-		//     [2, 2]
-		// ],
-		// "gold": [     // Advanced Only
-		//     [5, 5]
-		// ]
+		"walls": [    // Advanced Only
+		    [2, 2]
+		],
+		"gold": [     // Advanced Only
+		    [5, 5]
+		]
 }
 //Testing
 // var preprocessor = preprocessor();
