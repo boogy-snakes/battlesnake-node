@@ -24,23 +24,25 @@ function preprocessor(){
 
 		function shortenSnake(board, snake, type) {
 
-			console.dir(board, snake, type);
+			console.dir(board)
+			console.dir(snake)
+			console.dir(type)
 
-				var coordList = snake.coords.filter(function(coord, index, array) {
-					//distance starts at 1 for nearest neighbour
-					var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
-				 	if(willDisappear) {
-						return true;
-					} else {
-						return false;
-					}
-				});
+			var coordList = snake.coords.filter(function(coord, index, array) {
+				//distance starts at 1 for nearest neighbour
+				var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
+			 	if(willDisappear) {
+					return true;
+				} else {
+					return false;
+				}
+			});
 
-				console.log(coordList);
+			console.log(coordList);
 
-				coordList.forEach(function(coordinate) {
-					board[coordinate[1]][coordinate[0]] = type;
-				});
+			coordList.forEach(function(coordinate) {
+				board[coordinate[1]][coordinate[0]] = type;
+			});
 		}
 
 		console.log('add snakes');
