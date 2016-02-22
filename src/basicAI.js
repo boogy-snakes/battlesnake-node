@@ -21,6 +21,10 @@ module.exports = {
                   distances[f].snake = snake.id;
                   distances[f].length = path.length;
                   distances[f].snakeLength = snake.coords.length;
+              } else if(distances[f].snake == config.snake.id) {
+                  distances[f].snake = snake.id;
+                  distances[f].length = path.length;
+                  distances[f].snakeLength = snake.coords.length;
               }
 
           } else if( path.length < distances[f].length) {
