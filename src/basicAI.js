@@ -49,7 +49,7 @@ module.exports = {
       //make sure we don't go to ones that are abut to be filled
       } else {
         for(var loc of distances[f].path)
-          data.pmap[loc[1]][loc[0]] = 1;
+          data.pmap[loc[1]][loc[0]] += 0.3;
       }
     }
 

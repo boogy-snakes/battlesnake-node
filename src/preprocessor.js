@@ -43,6 +43,36 @@ function preprocessor(){
 			});
 		}
 
+		function addHeadProbabilities(board, snake, type){
+			if(snake.id == config.snake.id)
+				return;
+
+			var x = snake.coords[0][0];
+			var y = snake.coords[0][1];
+			if(x + 1 < size.x){
+				board[y][x + 1] += type;
+			}
+			if(x - 1 >= 0){
+				board[y][x - 1] += type;
+			}
+			if(y + 1 < size.y){
+				board[y + 1][x] += type;
+			}
+			if(y - 1 >= 0){
+				board[y - 1][x] += type;
+			}
+
+			if(x + 1 < size.x && y + 1 < size.y)
+				board[y + 1][x + 1] += type;
+			if(x + 1 < size.x && y - 1 < size.y)
+				board[y - 1][x + 1] += type;
+			if(x - 1 < size.x && y + 1 < size.y)
+				board[y + 1][x - 1] += type;
+			if(x - 1 < size.x && y - 1 < size.y)
+				board[y - 1][x - 1] += type;
+
+		}
+
 		console.log('add snakes');
 
 		reqMove.snakes.forEach(function(snake) {
@@ -52,7 +82,12 @@ function preprocessor(){
 		console.log('shorten snakes')
 
 		reqMove.snakes.forEach(function(snake) {
-			shortenSnake(board, snake.coords, 0);
+			shortenSnake(board, snake.coords, 0.3);
+		});
+
+		console.log('add head probabilities')
+		reqMove.snakes.forEach(function(snake) {
+			addHeadProbabilities(board, snake.coords, 0.3);
 		});
 
 		console.log(board);
