@@ -24,6 +24,8 @@ function preprocessor(){
 
 		function shortenSnake(board, snake, type) {
 
+			console.dir(board, snake, type);
+
 				var coordList = snake.coords.filter(function(coord, index, array) {
 					//distance starts at 1 for nearest neighbour
 					var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
