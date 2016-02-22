@@ -71,13 +71,13 @@ function preprocessor(){
 			if(x + 1 < size.x && y + 1 < size.y)
 				board[y + 1][x + 1] += type;
 			console.log(5)
-			if(x + 1 < size.x && y - 1 < size.y)
+			if(x + 1 < size.x && y - 1 >= 0)
 				board[y - 1][x + 1] += type;
 			console.log(6)
-			if(x - 1 < size.x && y + 1 < size.y)
+			if(x - 1 >= 0 && y + 1 < size.y)
 				board[y + 1][x - 1] += type;
 			console.log(7)
-			if(x - 1 < size.x && y - 1 < size.y)
+			if(x - 1 >= 0 && y - 1 >= 0)
 				board[y - 1][x - 1] += type;
 			console.log(8)
 
