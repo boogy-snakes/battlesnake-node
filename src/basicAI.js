@@ -38,6 +38,8 @@ module.exports = {
       }
     }
 
+    console.dir(distances);
+
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake = config.snake.id) {
