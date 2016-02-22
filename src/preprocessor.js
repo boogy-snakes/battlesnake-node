@@ -38,9 +38,13 @@ function preprocessor(){
 				});
 		}
 
+		console.log('add snakes');
+
 		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
 		});
+
+		console.log('shorten snakes')
 
 		reqMove.snakes.forEach(function(snake) {
 			shortenSnake(board, snake.coords, 1);
