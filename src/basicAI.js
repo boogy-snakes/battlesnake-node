@@ -8,7 +8,7 @@ module.exports = {
     var distances = {};
 
     for(var f of data.food) {
-      distances[f] = { snake: null, length: Infinity, snakeLength: 0};
+      distances[f] = { snake: null, length: Infinity, snakeLength: 0, path = []};
 
       for(var snake of data.snakes) {
           var path = findPath(snake.coords[0], f, data, 0.5);
@@ -22,11 +22,13 @@ module.exports = {
                   distances[f].snake = snake.id;
                   distances[f].length = path.length;
                   distances[f].snakeLength = snake.coords.length;
+                  distances[f].path = path;
               } else if(distances[f].snake == config.snake.id) {
                   console.log('our snake should avoid it')
                   distances[f].snake = snake.id;
                   distances[f].length = path.length;
                   distances[f].snakeLength = snake.coords.length;
+                  distances[f].path = path;
               }
 
           } else if( path.length < distances[f].length) {
@@ -34,20 +36,20 @@ module.exports = {
             distances[f].snake = snake.id;
             distances[f].length = path.length;
             distances[f].snakeLength = snake.coords.length;
+            distances[f].path = path;
           }
       }
     }
 
     console.dir(distances);
-    var loc;
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake == config.snake.id) {
         ourDistances.push({dist: distances[d].length, loc:d});
       //make sure we don't go to ones that are abut to be filled
-      } else if(distances[d].length <= 2) {
-        loc = d.split(',');
-        data.pmap[loc[1]][loc[0]] = 1;
+      } else {
+        for(var loc of distances[f].path)
+          data.pmap[loc[1]][loc[0]] = 1;
       }
     }
 
