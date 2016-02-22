@@ -42,7 +42,7 @@ module.exports = {
     var loc;
     var ourDistances = [];
     for(var d in distances) {
-      if(distances[d].snake = config.snake.id) {
+      if(distances[d].snake == config.snake.id) {
         ourDistances.push({dist: distances[d].length, loc:d});
       //make sure we don't go to ones that are abut to be filled
       } else if(distances[d].length <= 2) {
