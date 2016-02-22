@@ -12,6 +12,8 @@ module.exports = {
 
       for(var snake of data.snakes) {
           var path = findPath(snake.coords[0], f, data, 0.5);
+
+          console.log(path.length, distances[f].length, snake.coords.length, distances[f].snakeLength);
           
           if(path.length === distances[f].length) {
 
