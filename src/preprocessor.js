@@ -47,10 +47,10 @@ function preprocessor(){
 			if(snake.id == config.snake.id)
 				return;
 
-			console.log(x,y);
-
+			
 			var x = snake.coords[0][0];
 			var y = snake.coords[0][1];
+			console.log(x,y);
 			if(x + 1 < size.x){
 				board[y][x + 1] += type;
 			}
