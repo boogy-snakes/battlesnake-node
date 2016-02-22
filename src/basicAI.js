@@ -1,6 +1,7 @@
 // basic ai, just finds the closest food
 var findPath = require('./core').findPath;
 var config = require('../config.json');
+var _ = require('underscore');
 
 module.exports = {
   findClosestFood: function(data) {
@@ -31,11 +32,11 @@ module.exports = {
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake = config.snake.id) {
-        ourDistances.push({dist: d.length, loc:d});
+        ourDistances.push({dist: distances[d].length, loc:d});
       }
     }
 
-    ourDistances = ourDistances.sort((p, q) => { p.dist < q.dist });
+    ourDistances = _.sortBy(ourDistances, "dist");
 
     var minDistance = ourDistances[0];
     if(minDistance) {
