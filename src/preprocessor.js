@@ -24,10 +24,6 @@ function preprocessor(){
 
 		function shortenSnake(board, snake, type) {
 
-			console.dir(board)
-			console.dir(snake)
-			console.dir(type)
-
 			var ourCoords = getOurSnake(reqMove).coords[0];
 
 			var coordList = snake.filter(function(coord, index, array) {
@@ -40,8 +36,6 @@ function preprocessor(){
 				}
 			});
 
-			console.log(coordList);
-
 			coordList.forEach(function(coordinate) {
 				board[coordinate[1]][coordinate[0]] = type;
 			});
@@ -53,13 +47,15 @@ function preprocessor(){
 			changeCoordinate(board, snake.coords, 1);
 		});
 
+		console.log(board);
+		
 		console.log('shorten snakes')
 
 		reqMove.snakes.forEach(function(snake) {
 			shortenSnake(board, snake.coords, 0);
 		});
 
-		console.log('snakes shortened')
+		console.log(board);
 
 		// console.log(board);
 		return board;
