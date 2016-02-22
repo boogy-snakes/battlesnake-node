@@ -7,13 +7,23 @@ module.exports = {
     var distances = {};
 
     for(var f of data.food) {
-      distances[f] = { snake: null, length: Infinity};
+      distances[f] = { snake: null, length: Infinity, snakeLength: 0};
 
       for(var snake of data.snakes) {
           var path = findPath(snake.coords[0], f, data, 0.5);
-          if( path.length < distances[f].length) {
+          
+          if(path.length === distances[f].length) {
+
+              if(snake.coords.length > distances[f].snakeLength) {
+                  distances[f].snake = snake.id;
+                  distances[f].length = path.length;
+                  distances[f].snakeLength = snake.coords.length;
+              }
+
+          } else if( path.length < distances[f].length) {
             distances[f].snake = snake.id;
             distances[f].length = path.length;
+            distances[f].snakeLength = snake.coords.length;
           }
       }
     }
