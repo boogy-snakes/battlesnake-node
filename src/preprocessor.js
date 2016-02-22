@@ -9,26 +9,16 @@ function preprocessor(){
 
 	var size = {x:0, y:0};
 	var board = [[]];
-	toTest.board = board;
 
 	function convertBoardToMap(reqMove) {
-		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
 		function changeCoordinate(board, coordList, type) {
 			coordList.forEach(function(coordinate) {
 				board[coordinate[1]][coordinate[0]] = type;
 			})
 		}
-		function shortenSnakes() {
 
-		}
-
-		toTest.changeCoordinate = changeCoordinate;
 		reqMove.snakes.forEach(function(snake) {
 			changeCoordinate(board, snake.coords, 1);
-		});
-
-		reqMove.snakes.forEach(function(snake) {
-			shortenSnakes(board, snake.coords, 1);
 		});
 
 		// console.log(board);
@@ -40,15 +30,14 @@ function preprocessor(){
 		return snake[0];
 	}
 
-	toTest.convertBoardToMap = convertBoardToMap;
 
 	function init(reqStart) {
 		size.x = reqStart.width;
 		size.y = reqStart.height;
-		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
 	}
 
 	function predict(reqMove) {
+		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
 		reqMove.pmap = convertBoardToMap(reqMove);
 		var ourCoords = getOurSnake(reqMove).coords[0]; //The head of our snake
 		reqMove.current = {y: ourCoords[1], x: ourCoords[0]};
@@ -98,5 +87,4 @@ var sampleReq = {
 // preprocessor.init(sampleReq);
 // preprocessor.predict(sampleReq);
 //
-// toTest.convertBoardToMap(sampleReq);
 module.exports = preprocessor;
