@@ -8,7 +8,7 @@ module.exports = {
     var distances = {};
 
     for(var f of data.food) {
-      distances[f] = { snake: null, length: Infinity, snakeLength: 0, path = []};
+      distances[f] = { snake: null, length: Infinity, snakeLength: 0, path: []};
 
       for(var snake of data.snakes) {
           var path = findPath(snake.coords[0], f, data, 0.5);
