@@ -23,6 +23,7 @@ function preprocessor(){
 		}
 
 		function shortenSnake(board, snake, type) {
+
 				var coordList = snake.coords.filter(function(coord, index, array) {
 					//distance starts at 1 for nearest neighbour
 					var willDisappear = distance(ourSnakeHead, coord) >= array.length - index + 1;
@@ -32,6 +33,8 @@ function preprocessor(){
 						return false;
 					}
 				});
+
+				console.log(coordList);
 
 				coordList.forEach(function(coordinate) {
 					board[coordinate[1]][coordinate[0]] = type;
@@ -47,8 +50,10 @@ function preprocessor(){
 		console.log('shorten snakes')
 
 		reqMove.snakes.forEach(function(snake) {
-			shortenSnake(board, snake.coords, 1);
+			shortenSnake(board, snake.coords, 0);
 		});
+
+		conole.log('snakes shortened')
 
 		// console.log(board);
 		return board;
