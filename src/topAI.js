@@ -3,8 +3,14 @@
 var food = require('./basicAI.js').findClosestFood;
 var wander = require('./wanderAI.js');
 var tail = require('./followTailAI.js');
+var initAvoid = require('./initAvoidAI.js');
 
 module.exports = function(processed){
+	
+	if(processed.turn < 2) {
+		return initAvoid(processed);
+	}
+
 	try{
 		return food(processed);
 	}
