@@ -39,14 +39,20 @@ module.exports = {
       }
     }
 
+    var pr = 0;
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake == config.snake.id) {
         ourDistances.push({dist: distances[d].length, loc:d});
       //make sure we don't go to ones that are abut to be filled
       } else {
-        for(var loc of distances[f].path)
-          data.pmap[loc[1]][loc[0]] += 0.3;
+        pr = 0.3
+        for(var i = 0; i < distances.length; i++) {
+          pr -= 0.05;
+          if(pr <= 0)
+            break;
+          data.pmap[loc[1]][loc[0]] += pr;
+        }
       }
     }
 

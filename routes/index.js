@@ -57,7 +57,7 @@ router.post(config.routes.move, function (req, res) {
 
   console.log("current", processed.current);
   console.log(data.move, processed.target);
-  console.log(processed.pmap);
+  console.dir(processed);
 
   return res.json(data);
 });

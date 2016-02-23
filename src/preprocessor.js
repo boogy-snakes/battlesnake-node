@@ -44,9 +44,6 @@ function preprocessor(){
 		}
 
 		function addHeadProbabilities(board, snake, type){
-			if(snake.id == config.snake.id)
-				return;
-
 			
 			var x = snake.coords[0][0];
 			var y = snake.coords[0][1];
@@ -83,7 +80,13 @@ function preprocessor(){
 		});*/
 
 		reqMove.snakes.forEach(function(snake) {
-			addHeadProbabilities(board, snake, 0.3);
+
+			if(snake.id == config.snake.id)
+				return;
+			if(snake.coords.length < getOurSnake(reqMove).coords.length)
+				return;
+
+			addHeadProbabilities(board, snake, 0.4);
 		});
 
 		return board;
