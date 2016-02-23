@@ -64,13 +64,13 @@ function preprocessor(){
 			}
 
 			if(x + 1 < size.x && y + 1 < size.y)
-				board[y + 1][x + 1] += type;
+				board[y + 1][x + 1] += type/2;
 			if(x + 1 < size.x && y - 1 >= 0)
-				board[y - 1][x + 1] += type;
+				board[y - 1][x + 1] += type/2;
 			if(x - 1 >= 0 && y + 1 < size.y)
-				board[y + 1][x - 1] += type;
+				board[y + 1][x - 1] += type/2;
 			if(x - 1 >= 0 && y - 1 >= 0)
-				board[y - 1][x - 1] += type;
+				board[y - 1][x - 1] += type/2;
 
 		}
 
@@ -78,9 +78,9 @@ function preprocessor(){
 			changeCoordinate(board, snake.coords, 1);
 		});
 
-		reqMove.snakes.forEach(function(snake) {
+		/*reqMove.snakes.forEach(function(snake) {
 			shortenSnake(board, snake.coords, 0.3);
-		});
+		});*/
 
 		reqMove.snakes.forEach(function(snake) {
 			addHeadProbabilities(board, snake, 0.3);
