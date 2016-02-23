@@ -9,7 +9,7 @@ module.exports = function(data) {
 	var snake = _.where(data.snakes, {id: config.snake.id})[0];
 	console.log(snake);
 
-	var loc = {x:snake.coords[0][0], y: sanke.coords[0][1]};
+	var loc = {x:snake.coords[0][0], y: snake.coords[0][1]};
 
 	console.log(loc);
 	var target = {};
@@ -22,7 +22,7 @@ module.exports = function(data) {
 	if(loc.y > data.height/2) {
 		target.y = data.height - 1;
 	} else {
-		target.y  = 0;
+		target.y = 0;
 	}
 	console.log(target);
 
