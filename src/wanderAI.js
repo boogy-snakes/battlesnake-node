@@ -60,7 +60,7 @@ module.exports = function(data) {
     return 0;
   });
 
-  if(sd[0] == sd[1]) throw "can't decide which direction is better";
+  if(sd[0] == sd[1] || sd[0] < 2) throw "can't decide which direction is better";
 
 
   // Get maximum distance in distances
