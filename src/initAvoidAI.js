@@ -10,6 +10,8 @@ module.exports = function(data) {
 	console.log(snake);
 
 	var loc = {x:snake.coords[0][0], y: sanke.coords[0][1]};
+
+	console.log(loc);
 	var target = {};
 	if(loc.x > data.width/2) {
 		target.x = locx + 1;
