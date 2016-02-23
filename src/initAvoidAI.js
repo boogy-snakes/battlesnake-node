@@ -4,6 +4,8 @@ var _ = require('underscore');
 
 module.exports = function(data) {
 
+	console.log("avoiding");
+
 	var snake = _.where(data.snakes, {id: config.snake.id})[0];
 
 	var loc = {x:snake.coords[0], y: snke.coords[1]};
