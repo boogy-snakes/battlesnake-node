@@ -22,6 +22,7 @@ module.exports = function(data) {
 	} else {
 		target.y - 1;
 	}
+	console.log(target);
 
 	data.target = target;
 
