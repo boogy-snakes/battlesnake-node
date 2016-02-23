@@ -14,15 +14,15 @@ module.exports = function(data) {
 	console.log(loc);
 	var target = {};
 	if(loc.x > data.width/2) {
-		target.x = locx + 1;
+		target.x = data.width - 1;
 	} else {
-		target.x = loc.x - 1;
+		target.x = 0;
 	}
 
 	if(loc.y > data.height/2) {
-		target.y + 1;
+		target.y = data.height - 1;
 	} else {
-		target.y - 1;
+		target.y  = 0;
 	}
 	console.log(target);
 
