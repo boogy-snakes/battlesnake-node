@@ -51,7 +51,18 @@ module.exports = function(data) {
     }
     z = pmap[y][x];
     distances.w++;
+
   }
+
+  var sd = Object.keys(distances).sort(function(a,b){
+    if(distances[a] > distances[b]) return 1;
+    if(distances[a] < distances[b]) return -1;
+    return 0;
+  });
+
+  if(sd[0] == sd[1]) throw "can't decide which direction is better";
+
+
   // Get maximum distance in distances
   var direction = Object.keys(distances).reduce(function(a, b) {
     return distances[a] > distances[b] ? a : b

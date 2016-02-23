@@ -2,6 +2,7 @@
 
 var food = require('./basicAI.js').findClosestFood;
 var wander = require('./wanderAI.js');
+var tail = require('./followTailAI.js');
 
 module.exports = function(processed){
 	try{
@@ -9,6 +10,19 @@ module.exports = function(processed){
 	}
 	catch(e) {
 		console.log(e);
-		return wander(processed);
+		try{
+			return wander(processed);
+		}
+		catch(e){
+			console.log(e);
+
+			try{
+				return followTail(processed);
+			}
+			catch(e) {
+				console.log(e);
+				return {x: Math.round(processed.width/2),y:Math.round(processed.height/2)};
+			}
+		}
 	}
 };
