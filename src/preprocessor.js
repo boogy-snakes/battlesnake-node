@@ -100,7 +100,7 @@ function preprocessor(){
 
 			// try to kill snakes?
 			if(snakes[id].coords.length < snakes[sid].coords.length)
-				sval = -val;
+				sval = -val/2;
 
 			var x = snakes[id].coords[0][0];
 			var y = snakes[id].coords[0][1];

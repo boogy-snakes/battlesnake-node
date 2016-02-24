@@ -48,7 +48,7 @@ module.exports = {
         ourDistances.push({dist: distances[d].length, loc:d.split(','), path: distances[d].path});
       //make sure we don't go to ones that are about to be filled
       } else {
-        pr = 0.3
+        pr = 0.4
         for(var i = 0; i < distances.length; i++) {
           pr -= 0.05;
           if(pr <= 0)
