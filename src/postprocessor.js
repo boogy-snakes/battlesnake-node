@@ -3,7 +3,7 @@
 
 var pf = require('pathfinding');
 
-module.exports  = function(){
+module.exports = function(){
 
 	var finder = new pf.AStarFinder({
 		allowDiagonal: false,
@@ -11,56 +11,47 @@ module.exports  = function(){
 		heuristic: pf.Heuristic.chebyshev
 	});
 
-	var size = {x:0, y:0};
-
-	return {
-		init: function(x,y) {
-			size.x = x;
-			size.y = y;
-		},
-		direct: function(map, current, target, cutoff) {
-			
-			var grid = new pf.Grid(size.x, size.y); 
-			for(var x = 0; x < size.x; x++) {
-				for(var y = 0; y < size.y; y++) {
-					if(map[y][x] > cutoff) {
-						grid.setWalkableAt(x, y, false);
-					}
+	return function(map, current, target, cutoff) {	
+		var grid = new pf.Grid(map[0].length, map.length); 
+		for(var x = 0; x < map[0].length; x++) {
+			for(var y = 0; y < map.length; y++) {
+				if(map[y][x] > cutoff) {
+					grid.setWalkableAt(x, y, false);
 				}
 			}
+		}
 
-			var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
+		var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
 
-			// no path found, choose an open direction?
-			if(path.length == 0) {
-				if(current.x + 1  < size.x && map[current.y][current.x + 1] != 1) {
-					return "east";
-				}
-				if(current.x - 1  >= 0  && map[current.y][current.x - 1] != 1) {
-					return "west";
-				}
-				if(current.y + 1  < size.y && map[current.y + 1][current.x] != 1) {
-					return "south";
-				}
-				return "north";
-			}
-
-			var next = path[1];
-
-			var h = next[0] - current.x;
-			var v = next[1] - current.y;
-
-			if(h > 0){
+		// no path found, choose an open direction?
+		if(path.length == 0) {
+			if(current.x + 1  < size.x && map[current.y][current.x + 1] != 1) {
 				return "east";
 			}
-			if(h < 0) {
+			if(current.x - 1  >= 0  && map[current.y][current.x - 1] != 1) {
 				return "west";
 			}
-			if(v > 0) {
+			if(current.y + 1  < size.y && map[current.y + 1][current.x] != 1) {
 				return "south";
 			}
 			return "north";
 		}
+
+		var next = path[1];
+
+		var h = next[0] - current.x;
+		var v = next[1] - current.y;
+
+		if(h > 0){
+			return "east";
+		}
+		if(h < 0) {
+			return "west";
+		}
+		if(v > 0) {
+			return "south";
+		}
+		return "north";
 	}
 
-};
+}();

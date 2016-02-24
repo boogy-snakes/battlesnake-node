@@ -2,9 +2,9 @@ var config  = require('../config.json');
 var express = require('express');
 var router  = express.Router();
 
-var pre = require('../src/preprocessor.js')();
+var pre = require('../src/preprocessor.js');
 var ai = require('../src/topAI.js');
-var post = require('../src/postprocessor.js')();
+var post = require('../src/postprocessor.js');
 
 // Handle GET request to '/'
 router.get(config.routes.info, function (req, res) {
@@ -21,8 +21,6 @@ router.get(config.routes.info, function (req, res) {
 router.post(config.routes.start, function (req, res) {
   // Do something here to start the game
   var input = req.body;
-  pre.init(input);
-  post.init(input.width, input.height);
 
   // Response data
   var data = {
@@ -39,7 +37,7 @@ router.post(config.routes.move, function (req, res) {
 
   console.log('new request');
 
-  var data = pre.predict(input);
+  var data = pre(input);
 
   console.log('preprocessed')
 
@@ -51,7 +49,7 @@ router.post(config.routes.move, function (req, res) {
 
   // Response data
   var response = {
-    move: post.direct(data.snakes[config.snake.id].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
+    move: post(data.snakes[config.snake.id].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
     taunt: config.snake.taunt.move
   };
 

@@ -6,11 +6,6 @@ var toXY = require('./core.js').toXY;
 
 function preprocessor(){
 
-	function init(data) {
-		size.x = data.width;
-		size.y = data.height;
-	}
-
 	function predict(data) {
 
 		var snakeData = {};
@@ -136,10 +131,8 @@ function preprocessor(){
 
 	}
 
-	return {
-		init: init,
-		predict: predict
-	}
+	return predict;
+
 }
 
-module.exports = preprocessor;
+module.exports = preprocessor();
