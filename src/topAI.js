@@ -15,17 +15,20 @@ module.exports = function(data){
 	}
 	catch(e) {
 		console.log(e);
+		console.log(e.stack);
 		try{
 			return wander(data);
 		}
 		catch(e){
 			console.log(e);
+			console.log(e.stack);
 
 			try{
 				return tail(data);
 			}
 			catch(e) {
 				console.log(e);
+				console.log(e.stack);
 				data.target = {x: Math.round(data.width/2), y:Math.round(data.height/2)};
 				return data;
 			}

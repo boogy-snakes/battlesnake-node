@@ -12,66 +12,62 @@ module.exports = function(data) {
   var x = current.x;
   var y = current.y;
   var z = 0;
-  while(z < 0.5) {
-    y--;
-    if (y < 0 || y > data.height-1) {
-      break;
+  if (y < 0 || y > data.height-1) {
+    if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.length], 0.5).length > 0){
+      distances.n++;
     }
-    z = pmap[y][x];
-    distances.n++;
-  }
-  // having the tail is handy
-  if(!(y < 0 || y > data.height-1) && findPath(pmap, [current.x, current.y - 1], snake.coords[snake.length], 0.5).length > 0){
-    distances.n++;
+    while(z < 0.5) {
+      y--;
+      z = pmap[y][x];
+      distances.n++;
+    }
   }
 
   // Calculate east distance
   x = current.x;
   y = current.y;
   z = 0;
-  while(z < 0.5) {
-    x++;
-    if (x < 0 || x > data.width-1) {
-      break;
+  if (x >= 0 && x < data.width) {
+    if(findPath(pmap, [current.x + 1, current.y], snake.coords[snake.length], 0.5).length > 0){
+      distances.e++;
     }
-    z = pmap[y][x];
-    distances.e++;
+    while(z < 0.5) {
+      x++;
+      z = pmap[y][x];
+      distances.e++;
+    }
   }
-  // having the tail is handy
-  if(!(x < 0 || x > data.width-1) && findPath(pmap, [current.x + 1, current.y], snake.coords[snake.length], 0.5).length > 0){
-    distances.e++;
-  }
+  
   // Calculate south distance
   x = current.x;
   y = current.y;
   z = 0;
-  while(z < 0.5) {
-    y++;
-    if (y < 0 || y > data.height-1) {
-      break;
+  if (y >= 0 || y < data.height) {
+    if(findPath(pmap, [current.x, current.y + 1], snake.coords[snake.length], 0.5).length > 0){
+      distances.s++;
     }
-    z = pmap[y][x];
-    distances.s++;
+    while(z < 0.5) {
+      y++;
+
+      z = pmap[y][x];
+      distances.s++;
+    }
   }
-  // having the tail is handy
-  if(! (y < 0 || y > data.height-1) && findPath(pmap, [current.x, current.y + 1], snake.coords[snake.length], 0.5).length > 0){
-    distances.s++;
-  }
+  
   // Calculate west distance
   x = current.x;
   y = current.y;
   z = 0;
-  while(z < 0.5) {
-    x--;
-    if (x < 0 || x > data.width-1) {
-      break;
+
+  if (x >= 0 || x < data.width) { 
+    if(findPath(pmap, [current.x - 1, current.y], snake.coords[snake.length], 0.5).length > 0){
+      distances.w++;
     }
-    z = pmap[y][x];
-    distances.w++;
-  }
-  // having the tail is handy
-  if(!(x < 0 || x > data.width-1) && findPath(pmap, [current.x - 1, current.y], snake.coords[snake.length], 0.5).length > 0){
-    distances.w++;
+    while(z < 0.5) {
+      x--;
+      z = pmap[y][x];
+      distances.w++;
+    }
   }
 
   var sd = Object.keys(distances).sort(function(a,b){
