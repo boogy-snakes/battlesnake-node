@@ -77,7 +77,7 @@ function preprocessor(){
 	}
 
 	// adds movement probabilities from the perspective of id
-	function headsAs(map, snakes, id, val) {
+	function headsAs(map, snakes, sid, val) {
 		var smap = [];
 		for(var y = 0; y < map.length; y++) {
 			smap.push([]);
@@ -99,8 +99,8 @@ function preprocessor(){
 			if(snakes[id].coords.length < snakes[sid].coords.length)
 				sval = -val;
 
-			var x = snakes[sid].coords[0][0];
-			var y = snakes[sid].coords[0][1];
+			var x = snakes[id].coords[0][0];
+			var y = snakes[id].coords[0][1];
 
 			// adjacent squares
 			if(x + 1 < size.x){
