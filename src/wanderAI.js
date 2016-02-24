@@ -12,7 +12,7 @@ module.exports = function(data) {
   var x = current.x;
   var y = current.y;
   var z = 0;
-  if (y < 0 || y > data.height-1) {
+  if (y >= 0 || y < data.height) {
     if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.length], 0.5).length > 0){
       distances.n++;
     }
