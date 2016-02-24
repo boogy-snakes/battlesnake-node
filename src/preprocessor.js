@@ -21,7 +21,7 @@ function preprocessor(){
 			snakeData[id].map = headsAs(snakeData[id].map, snakeData, id, 0.4);
 		}
 
-		data.snakes = data;
+		data.snakes = snakeData;
 
 		return data;
 	}
