@@ -13,7 +13,7 @@ module.exports = function(data) {
   var y = current.y;
   var z = 0;
   if (y >= 0 || y < data.height) {
-    if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.coords.length], 0.5).length > 0){
+    if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.coords.length - 1], 0.5).length > 0){
       distances.n++;
     }
     while(z < 0.5) {
@@ -28,7 +28,7 @@ module.exports = function(data) {
   y = current.y;
   z = 0;
   if (x >= 0 && x < data.width) {
-    if(findPath(pmap, [current.x + 1, current.y], snake.coords[snake.coords.length], 0.5).length > 0){
+    if(findPath(pmap, [current.x + 1, current.y], snake.coords[snake.coords.lengt - 1], 0.5).length > 0){
       distances.e++;
     }
     while(z < 0.5) {
@@ -43,7 +43,7 @@ module.exports = function(data) {
   y = current.y;
   z = 0;
   if (y >= 0 || y < data.height) {
-    if(findPath(pmap, [current.x, current.y + 1], snake.coords[snake.coords.length], 0.5).length > 0){
+    if(findPath(pmap, [current.x, current.y + 1], snake.coords[snake.coords.length - 1], 0.5).length > 0){
       distances.s++;
     }
     while(z < 0.5) {
@@ -60,7 +60,7 @@ module.exports = function(data) {
   z = 0;
 
   if (x >= 0 || x < data.width) { 
-    if(findPath(pmap, [current.x - 1, current.y], snake.coords[snake.coords.length], 0.5).length > 0){
+    if(findPath(pmap, [current.x - 1, current.y], snake.coords[snake.coords.length - 1], 0.5).length > 0){
       distances.w++;
     }
     while(z < 0.5) {
