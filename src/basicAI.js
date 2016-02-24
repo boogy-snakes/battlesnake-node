@@ -54,7 +54,7 @@ module.exports = {
           pr -= 0.05;
           if(pr <= 0)
             break;
-          data.pmap[loc[1]][loc[0]] += pr;
+          data.snakes[config.snake.id].map[loc[1]][loc[0]] += pr;
         }
       }
     }
