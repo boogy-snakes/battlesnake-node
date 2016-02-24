@@ -38,7 +38,7 @@ function preprocessor(){
 			}
 		}
 		for(var id in snakes) {
-			for(var coord of snakes[s].coords) {
+			for(var coord of snakes[id].coords) {
 				smap[coord[1]][coord[0]] = val;
 			}
 		}
