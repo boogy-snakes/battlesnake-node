@@ -7,8 +7,6 @@ module.exports = function(data) {
 
 	var snake = data.snakes[config.snake.id];
 
-	console.log(snake);
-
 	var loc = toXY(snake.coords[0]);
 
 	console.log(loc);
