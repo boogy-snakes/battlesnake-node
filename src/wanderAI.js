@@ -21,7 +21,7 @@ module.exports = function(data) {
     distances.n++;
   }
   // having the tail is handy
-  if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.length], 0.5).length > 0){
+  if(!(y < 0 || y > data.height-1) && findPath(pmap, [current.x, current.y - 1], snake.coords[snake.length], 0.5).length > 0){
     distances.n++;
   }
 
@@ -38,7 +38,7 @@ module.exports = function(data) {
     distances.e++;
   }
   // having the tail is handy
-  if(findPath(pmap, [current.x + 1, current.y], snake.coords[snake.length], 0.5).length > 0){
+  if(!(x < 0 || x > data.width-1) && findPath(pmap, [current.x + 1, current.y], snake.coords[snake.length], 0.5).length > 0){
     distances.e++;
   }
   // Calculate south distance
@@ -54,7 +54,7 @@ module.exports = function(data) {
     distances.s++;
   }
   // having the tail is handy
-  if(findPath(pmap, [current.x, current.y + 1], snake.coords[snake.length], 0.5).length > 0){
+  if(! (y < 0 || y > data.height-1) && findPath(pmap, [current.x, current.y + 1], snake.coords[snake.length], 0.5).length > 0){
     distances.s++;
   }
   // Calculate west distance
@@ -70,7 +70,7 @@ module.exports = function(data) {
     distances.w++;
   }
   // having the tail is handy
-  if(findPath(pmap, [current.x - 1, current.y], snake.coords[snake.length], 0.5).length > 0){
+  if(!(x < 0 || x > data.width-1) && findPath(pmap, [current.x - 1, current.y], snake.coords[snake.length], 0.5).length > 0){
     distances.w++;
   }
 
