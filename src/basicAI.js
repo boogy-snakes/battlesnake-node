@@ -59,23 +59,21 @@ module.exports = {
       }
     }
 
-    var smap = data.snakes[config.snake.id].map;
     ourDistances = ourDistances.filter(function(fd){
 
+      var s = data.snakes[config.snake.id];
       var map = [];
       // copy the map
-      for(var y = 0; y < smap.length, y++) {
+      for(var y = 0; y < s.map.length; y++) {
         map.push([]);
-        for(var x = 0; x < smap[0].length, x++) {
-          map[y][x] = smap[y][x];
+        for(var x = 0; x < s.map[0].length; x++) {
+          map[y][x] = s.map[y][x];
         }
       }
 
       for(var i = 1; i < fd.path.length-2; i++) {
         map[fd.path[i][1]][fd.path[i][0]] = 1;
       }
-
-      var s = data.snakes[config.snake.id];
 
       return findPath(map, fd.loc, s.coords[s.coords.length-1], 0.5).length;
 
