@@ -11,7 +11,8 @@ module.exports = function(data){
 	}
 
 	try{
-		return food(data);
+		//return food(data);
+		return tail(data);
 	}
 	catch(e) {
 		console.log(e);
