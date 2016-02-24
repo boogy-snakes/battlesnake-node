@@ -79,7 +79,7 @@ function preprocessor(){
 	// adds movement probabilities from the perspective of id
 	function headsAs(map, snakes, sid, val) {
 		
-		var size =  {x:data.width, y:data.height};
+		var size =  {x:map[0].length, y:map.length};
 
 		var smap = [];
 		for(var y = 0; y < map.length; y++) {
