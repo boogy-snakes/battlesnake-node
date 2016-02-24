@@ -46,8 +46,8 @@ module.exports = {
     var ourDistances = [];
     for(var d in distances) {
       if(distances[d].snake == config.snake.id) {
-        ourDistances.push({dist: distances[d].length, loc:d});
-      //make sure we don't go to ones that are abut to be filled
+        ourDistances.push({dist: distances[d].length, loc:d.split(','), path: distances[d].path});
+      //make sure we don't go to ones that are about to be filled
       } else {
         pr = 0.3
         for(var i = 0; i < distances.length; i++) {
@@ -59,6 +59,28 @@ module.exports = {
       }
     }
 
+    var smap = data.snakes[config.snake.id].map;
+    ourDistances = ourDistances.filter(function(fd){
+
+      var map = [];
+      // copy the map
+      for(var y = 0; y < smap.length, y++) {
+        map.push([]);
+        for(var x = 0; x < smap[0].length, x++) {
+          map[y][x] = smap[y][x];
+        }
+      }
+
+      for(var i = 1; i < fd.path.length-2; i++) {
+        map[fd.path[i][1]][fd.path[i][0]] = 1;
+      }
+
+      var s = data.snakes[config.snake.id];
+
+      return findPath(map, fd.loc, s.coords[s.coords.length-1], 0.5).length;
+
+    })
+
     ourDistances = ourDistances.sort(function(a,b){
       if(a.dist > b.dist) return 1;
       if(a.dist < b.dist) return -1;
@@ -67,7 +89,6 @@ module.exports = {
 
     var minDistance = ourDistances[0];
     if(minDistance) {
-      minDistance.loc = minDistance.loc.split(',');
       data.target = toXY(minDistance.loc);
     }
     else {
