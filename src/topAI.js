@@ -1,5 +1,4 @@
 // receives preprocessed data, and decides on an ai to use
-
 var food = require('./basicAI.js').findClosestFood;
 var wander = require('./wanderAI.js');
 var tail = require('./followTailAI.js');

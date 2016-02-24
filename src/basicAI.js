@@ -33,7 +33,6 @@ module.exports = {
             }
 
         } else if( path.length < distances[f].length) {
-          console.log('difference in lengths')
           distances[f].snake = id;
           distances[f].length = path.length;
           distances[f].snakeLength = snake.coords.length;

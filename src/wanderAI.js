@@ -1,6 +1,9 @@
+var findPath = require('./core').findPath;
+
 module.exports = function(data) {
   var current = data.current;
   var pmap = data.pmap;
+  var snake = data.snakes[config.snake.id];
 
   var distances = { n: 0, e: 0, s: 0, w: 0 };
 
@@ -16,6 +19,11 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.n++;
   }
+  // having the tail is handy
+  if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.length], 0.5).length > 0){
+    distances.n++;
+  }
+
   // Calculate east distance
   x = current.x;
   y = current.y;
@@ -26,6 +34,10 @@ module.exports = function(data) {
       break;
     }
     z = pmap[y][x];
+    distances.e++;
+  }
+  // having the tail is handy
+  if(findPath(pmap, [current.x + 1, current.y], snake.coords[snake.length], 0.5).length > 0){
     distances.e++;
   }
   // Calculate south distance
@@ -40,6 +52,10 @@ module.exports = function(data) {
     z = pmap[y][x];
     distances.s++;
   }
+  // having the tail is handy
+  if(findPath(pmap, [current.x, current.y + 1], snake.coords[snake.length], 0.5).length > 0){
+    distances.s++;
+  }
   // Calculate west distance
   x = current.x;
   y = current.y;
@@ -51,7 +67,10 @@ module.exports = function(data) {
     }
     z = pmap[y][x];
     distances.w++;
-
+  }
+  // having the tail is handy
+  if(findPath(pmap, [current.x - 1, current.y], snake.coords[snake.length], 0.5).length > 0){
+    distances.w++;
   }
 
   var sd = Object.keys(distances).sort(function(a,b){
@@ -61,13 +80,19 @@ module.exports = function(data) {
   });
   console.log(sd);
 
-  if(sd[0] == sd[1] || sd[0] < 2) throw "can't decide which direction is better";
+  if(sd[0] < 2) throw "can't decide which direction is better";
 
+  var direction;
 
-  // Get maximum distance in distances
-  var direction = Object.keys(distances).reduce(function(a, b) {
-    return distances[a] > distances[b] ? a : b
-  });
+  // its a tie
+  if(sd[0] == sd[1]) {
+    direction = sd[Math.round(Math.random())];
+
+  } else {
+    direction = Object.keys(distances).reduce(function(a, b) {
+      return distances[a] > distances[b] ? a : b
+    });
+  }
 
   switch(direction){
   case "n":
