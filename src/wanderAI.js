@@ -7,15 +7,15 @@ module.exports = function(data) {
   var snake = data.snakes[config.snake.id];
 
   var distances = { n: 0, e: 0, s: 0, w: 0 };
+  var paths = {n:[], e:[], s: [], w: []};
 
   // Calculate north distance
   var x = current.x;
   var y = current.y;
   var z = 0;
   if (y - 1 >= 0) {
-    if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.coords.length - 1], 0.5).length > 0){
-      distances.n++;
-    }
+    paths.n = findPath(pmap, [current.x, current.y - 1], snake.coords[snake.coords.length - 1], 0.5)
+    distances.n = paths.n.length;
     while(z < 0.5) {
       y--;
       if(y < 0) break;
@@ -29,9 +29,8 @@ module.exports = function(data) {
   y = current.y;
   z = 0;
   if (x + 1 < data.width) {
-    if(findPath(pmap, [current.x + 1, current.y], snake.coords[snake.coords.length - 1], 0.5).length > 0){
-      distances.e++;
-    }
+    paths.e = findPath(pmap, [current.x + 1, current.y], snake.coords[snake.coords.length - 1], 0.5);
+    distances.e = paths.e.length;
     while(z < 0.5) {
       x++;
       if(x >= data.width) break;
@@ -45,9 +44,8 @@ module.exports = function(data) {
   y = current.y;
   z = 0;
   if (y + 1 < data.height) {
-    if(findPath(pmap, [current.x, current.y + 1], snake.coords[snake.coords.length - 1], 0.5).length > 0){
-      distances.s++;
-    }
+    paths.s = findPath(pmap, [current.x, current.y + 1], snake.coords[snake.coords.length - 1], 0.5)
+    distances.s = paths.s.length;
     while(z < 0.5) {
       y++;
       if(y >= data.height) break;
@@ -61,8 +59,9 @@ module.exports = function(data) {
   y = current.y;
   z = 0;
 
-  if (x - 1 >= 0) { 
-    if(findPath(pmap, [current.x - 1, current.y], snake.coords[snake.coords.length - 1], 0.5).length > 0){
+  if (x - 1 >= 0) {
+  paths.w = findPath(pmap, [current.x - 1, current.y], snake.coords[snake.coords.length - 1], 0.5)
+    if(paths.w.length > 0){
       distances.w++;
     }
     while(z < 0.5) {
@@ -73,19 +72,18 @@ module.exports = function(data) {
     }
   }
 
+  // sort to check the longest distances
   var sd = Object.keys(distances).sort(function(a,b){
-    if(distances[a] > distances[b]) return 1;
-    if(distances[a] < distances[b]) return -1;
+    if(distances[a] > distances[b]) return -1;
+    if(distances[a] < distances[b]) return 1;
     return 0;
   });
-  console.log(sd);
 
-  if(sd[0] < 2) throw "can't decide which direction is better";
+  if(distances[sd[0]] < 2) throw "not much space to wander"
 
   var direction;
+  if(distances[sd[0]] == distances[sd[1]]) {
 
-  // its a tie
-  if(sd[0] == sd[1]) {
     direction = sd[Math.round(Math.random())];
 
   } else {

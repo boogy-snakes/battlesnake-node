@@ -17,6 +17,7 @@ module.exports = function(data){
 		console.log(e);
 		console.log(e.stack);
 		try{
+			console.log("wander")
 			return wander(data);
 		}
 		catch(e){
@@ -24,11 +25,13 @@ module.exports = function(data){
 			console.log(e.stack);
 
 			try{
+				console.log("follow tail")
 				return tail(data);
 			}
 			catch(e) {
 				console.log(e);
 				console.log(e.stack);
+				console.log("try going to the middle")
 				data.target = {x: Math.round(data.width/2), y:Math.round(data.height/2)};
 				return data;
 			}
