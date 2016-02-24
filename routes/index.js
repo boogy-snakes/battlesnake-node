@@ -33,29 +33,36 @@ router.post(config.routes.start, function (req, res) {
 // Handle POST request to '/move'
 router.post(config.routes.move, function (req, res) {
   // Do something here to generate your move
-  var input = req.body;
+  
+  try{
 
-  console.log('new request');
+    var input = req.body;
 
-  var data = pre(input);
+    console.log('new request');
 
-  console.log('preprocessed')
+    var data = pre(input);
 
-  data = ai(data);
+    console.log('preprocessed')
 
-  console.log('ai run');
+    data = ai(data);
 
-  data.cutoff = 0.5
+    console.log('ai run');
 
-  // Response data
-  var response = {
-    move: post(data.snakes[config.snake.id].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
-    taunt: config.snake.taunt.move
-  };
+    data.cutoff = 0.5
 
-  console.log("current", data.current);
-  console.log(response.move, data.target);
-  //console.dir(data);
+    // Response data
+    var response = {
+      move: post(data.snakes[config.snake.id].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
+      taunt: config.snake.taunt.move
+    };
+
+    console.log("current", data.current);
+    console.log(response.move, data.target);
+    //console.dir(data);
+  }
+  catch(e){
+    console.log(e);
+  }
 
   return res.json(response);
 });
