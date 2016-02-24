@@ -1,18 +1,18 @@
 // pathfinds to its tail
 var findPath = require('./core').findPath;
 var config = require('../config.json');
-var _ = require('underscore');
+var toXY = require('./core').toXY;
 
 module.exports = function(data) {
 
-	var snake = _.where(data.snakes, {id: config.snake.id})[0];
+	var snake = data.snakes[config.snake.id];
 
-	var path = findPath(snake.coords[0], snake.coords[snake.length], data, 0.5);
+	var path = findPath(snake.map, snake.coords[0], snake.coords[snake.length], 0.5);
 
 	if (path.length == 0) 
 		throw "can't make it to the tail"
 
-	data.target =  {x:path[1][0], y: path[1][1]};
+	data.target =  toXY(path[1]);
 
 	return data;
 }

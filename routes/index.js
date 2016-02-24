@@ -39,27 +39,27 @@ router.post(config.routes.move, function (req, res) {
 
   console.log('new request');
 
-  var processed = pre.predict(input);
+  var data = pre.predict(input);
 
   console.log('preprocessed')
 
-  processed = ai(processed);
+  data = ai(data);
 
   console.log('ai run');
 
-  processed.cutoff = 0.5
+  data.cutoff = 0.5
 
   // Response data
-  var data = {
-    move: post.direct(processed.pmap, processed.current, processed.target, processed.cutoff), // one of: ["north", "east", "south", "west"]
+  var response = {
+    move: post.direct(data.snakes[config.snake.id].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
     taunt: config.snake.taunt.move
   };
 
-  console.log("current", processed.current);
-  console.log(data.move, processed.target);
-  console.dir(processed);
+  console.log("current", data.current);
+  console.log(response.move, data.target);
+  //console.dir(data);
 
-  return res.json(data);
+  return res.json(response);
 });
 
 // Handle POST request to '/end'

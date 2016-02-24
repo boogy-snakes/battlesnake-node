@@ -5,29 +5,29 @@ var wander = require('./wanderAI.js');
 var tail = require('./followTailAI.js');
 var initAvoid = require('./initAvoidAI.js');
 
-module.exports = function(processed){
+module.exports = function(data){
 	
-	if(processed.turn < 2) {
-		return initAvoid(processed);
+	if(data.turn < 2) {
+		return initAvoid(data);
 	}
 
 	try{
-		return food(processed);
+		return food(data);
 	}
 	catch(e) {
 		console.log(e);
 		try{
-			return wander(processed);
+			return wander(data);
 		}
 		catch(e){
 			console.log(e);
 
 			try{
-				return followTail(processed);
+				return followTail(data);
 			}
 			catch(e) {
 				console.log(e);
-				return {x: Math.round(processed.width/2),y:Math.round(processed.height/2)};
+				return {x: Math.round(data.width/2), y:Math.round(data.height/2)};
 			}
 		}
 	}

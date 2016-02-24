@@ -59,6 +59,7 @@ module.exports = function(data) {
     if(distances[a] < distances[b]) return -1;
     return 0;
   });
+  console.log(sd);
 
   if(sd[0] == sd[1] || sd[0] < 2) throw "can't decide which direction is better";
 

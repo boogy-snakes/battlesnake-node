@@ -1,15 +1,15 @@
 var config = require('../config.json');
-var _ = require('underscore');
-
+var toXY = require('./core.js').toXY;
 
 module.exports = function(data) {
 
 	console.log("avoiding");
 
-	var snake = _.where(data.snakes, {id: config.snake.id})[0];
+	var snake = data.snakes[config.snake.id];
+
 	console.log(snake);
 
-	var loc = {x:snake.coords[0][0], y: snake.coords[0][1]};
+	var loc = toXY(snake.coords[0]);
 
 	console.log(loc);
 	var target = {};

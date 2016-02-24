@@ -1,114 +1,139 @@
 
 // converts input into interesting stuff
-var Promise = require('bluebird');
 var config = require('../config.json');
-var _ = require('underscore');
-var toTest = {}
+var distance = require('./core.js').distance;
+var toXY = require('./core.js').toXY;
 
 function preprocessor(){
 
-	var size = {x:0, y:0};
-	var board = [[]];
+	function init(data) {
+		size.x = data.width;
+		size.y = data.height;
+	}
 
-	function convertBoardToMap(reqMove) {
-		function changeCoordinate(board, coordList, type) {
-			coordList.forEach(function(coordinate) {
-				board[coordinate[1]][coordinate[0]] = type;
-			})
+	function predict(data) {
+
+		var snakeData = {};
+		for(var snake of data.snakes) {
+			snakeData[snake.id] = snake;
 		}
 
-		function distance(coord1, coord2) {
-			//y distance + x distance
-			return Math.abs(coord1[0] - coord2[0]) + Math.abs(coord1[1] - coord2[1]);
+		data.current = toXY(snakeData[config.snake.id].coords[0]);
+		data.pmap = renderSnakes(snakeData, {x:data.width, y:data.height}, 1);
+
+		for(var id in snakeData) {
+			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0.3);
+			snakeData[id].map = headsAs(snakeData[id].map, snakeData, id, 0.4);
 		}
 
-		function shortenSnake(board, snake, type) {
+		data.snakes = data;
 
-			var ourCoords = getOurSnake(reqMove).coords[0];
+		return data;
+	}
 
-			var coordList = snake.filter(function(coord, index, array) {
-				//distance starts at 1 for nearest neighbour
 
-				//+1 to buffer on whether the snake eats food soon
-				var willDisappear = distance(ourCoords, coord) >= array.length - index + 1;
-			 	if(willDisappear) {
-					return true;
-				} else {
-					return false;
-				}
+	// creates a map of 1s and 0s where there are blocks
+	function renderSnakes(snakes, size, val) {
+
+		var smap = [];
+		for( var y = 0; y < size.y; y++) {
+			smap.push([]);
+			for(var x = 0; x < size.x; x++) {
+				smap[y].push(0);
+			}
+		}
+		for(var id in snakes) {
+			for(var coord of snakes[s].coords) {
+				smap[coord[1]][coord[0]] = val;
+			}
+		}
+		return smap;
+	}
+
+	function renderWalls(map, walls){
+
+	}
+
+	// shortens snake from the perspective of id
+	function shortenAs(map, snakes, sid, val) {
+
+		var smap = [];
+		for(var y = 0; y < map.length; y++) {
+			smap.push([]);
+			for(var x = 0; x < map[0].length; x++) {
+				smap[y][x] = map[y][x];
+			}
+		}
+		var ourCoords = snakes[sid].coords[0];
+
+		// shorten each snake
+		for(var id in snakes){
+			var coords = snakes[id].coords.filter(function(coord, index, array) {	
+				// +1 to buffer on whether the snake eats food soon
+				return distance(ourCoords, coord) >= array.length - index + 1;
 			});
 
-			coordList.forEach(function(coordinate) {
-				board[coordinate[1]][coordinate[0]] = type;
+			coords.forEach(function(loc) {
+				smap[loc[1]][loc[0]] = val;
 			});
 		}
 
-		function addHeadProbabilities(board, snake, type){
-			
-			var x = snake.coords[0][0];
-			var y = snake.coords[0][1];
+		return smap;
+	}
+
+	// adds movement probabilities from the perspective of id
+	function headsAs(map, snakes, id, val) {
+		var smap = [];
+		for(var y = 0; y < map.length; y++) {
+			smap.push([]);
+			for(var x = 0; x < map[0].length; x++) {
+				smap[y][x] = map[y][x];
+			}
+		}
+
+		var sval;
+
+		for(var id in snakes){
+
+			sval = val;
+
+			// don't block our own snake
+			if(id == sid) continue;
+
+			// try to kill snakes?
+			if(snakes[id].coords.length < snakes[sid].coords.length)
+				sval = -val;
+
+			var x = snakes[sid].coords[0][0];
+			var y = snakes[sid].coords[0][1];
+
+			// adjacent squares
 			if(x + 1 < size.x){
-				board[y][x + 1] += type;
+				smap[y][x + 1] += sval;
 			}
 			if(x - 1 >= 0){
-				board[y][x - 1] += type;
+				smap[y][x - 1] += sval;
 			}
 			if(y + 1 < size.y){
-				board[y + 1][x] += type;
+				smap[y + 1][x] += sval;
 			}
 			if(y - 1 >= 0){
-				board[y - 1][x] += type;
+				smap[y - 1][x] += sval;
 			}
 
+			// kitty corners
 			if(x + 1 < size.x && y + 1 < size.y)
-				board[y + 1][x + 1] += type/2;
+				smap[y + 1][x + 1] += sval/2;
 			if(x + 1 < size.x && y - 1 >= 0)
-				board[y - 1][x + 1] += type/2;
+				smap[y - 1][x + 1] += sval/2;
 			if(x - 1 >= 0 && y + 1 < size.y)
-				board[y + 1][x - 1] += type/2;
+				smap[y + 1][x - 1] += sval/2;
 			if(x - 1 >= 0 && y - 1 >= 0)
-				board[y - 1][x - 1] += type/2;
-
+				smap[y - 1][x - 1] += sval/2;
 		}
 
-		reqMove.snakes.forEach(function(snake) {
-			changeCoordinate(board, snake.coords, 1);
-		});
+		return smap;
 
-		/*reqMove.snakes.forEach(function(snake) {
-			shortenSnake(board, snake.coords, 0.3);
-		});*/
-
-		reqMove.snakes.forEach(function(snake) {
-
-			if(snake.id == config.snake.id)
-				return;
-			if(snake.coords.length < getOurSnake(reqMove).coords.length)
-				return;
-
-			addHeadProbabilities(board, snake, 0.4);
-		});
-
-		return board;
-	}
-
-	function getOurSnake(reqMove) {
-		var snake = _.where(reqMove.snakes, {id: config.snake.id});
-		return snake[0];
-	}
-
-
-	function init(reqStart) {
-		size.x = reqStart.width;
-		size.y = reqStart.height;
-	}
-
-	function predict(reqMove) {
-		board = Array(size.y).fill(0).map(row => Array(size.x).fill(0));
-		var ourCoords = getOurSnake(reqMove).coords[0]; //The head of our snake
-		reqMove.current = {y: ourCoords[1], x: ourCoords[0]};
-		reqMove.pmap = convertBoardToMap(reqMove);
-		return reqMove;
 	}
 
 	return {
@@ -116,42 +141,5 @@ function preprocessor(){
 		predict: predict
 	}
 }
-var sampleSnakes = [
-			{
-			"id": "b475914e-61a4-45bf-bfd9-a31486e398d0",
-			"name": "Well Documented Snake",
-			"status": "alive",
-			"message": "Moved north",
-			"taunt": "Let's rock!",
-			"age": 56,
-			"health": 83,
-			"coords": [ [1, 1], [1, 2], [2, 2] ],
-			"kills": 4,
-			"food": 12,
-			"gold": 2
-	}
-]
 
-var sampleReq = {
-		"game": "hairy-cheese",
-		"mode": "advanced",
-		"turn": 4,
-		"height": 20,
-		"width": 30,
-		"snakes": sampleSnakes,
-		"food": [
-				[1, 2], [9, 3]
-		],
-		"walls": [    // Advanced Only
-		    [2, 2]
-		],
-		"gold": [     // Advanced Only
-		    [5, 5]
-		]
-}
-//Testing
-// var preprocessor = preprocessor();
-// preprocessor.init(sampleReq);
-// preprocessor.predict(sampleReq);
-//
 module.exports = preprocessor;
