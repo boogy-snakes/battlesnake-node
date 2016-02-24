@@ -1,4 +1,5 @@
 var findPath = require('./core').findPath;
+var config = require('../config.json');
 
 module.exports = function(data) {
   var current = data.current;
