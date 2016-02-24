@@ -22,11 +22,12 @@ module.exports = function(data){
 			console.log(e);
 
 			try{
-				return followTail(data);
+				return tail(data);
 			}
 			catch(e) {
 				console.log(e);
-				return {x: Math.round(data.width/2), y:Math.round(data.height/2)};
+				data.target = {x: Math.round(data.width/2), y:Math.round(data.height/2)};
+				return data;
 			}
 		}
 	}
