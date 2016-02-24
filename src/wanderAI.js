@@ -16,7 +16,6 @@ module.exports = function(data) {
     if(findPath(pmap, [current.x, current.y - 1], snake.coords[snake.coords.length - 1], 0.5).length > 0){
       distances.n++;
     }
-  }
     while(z < 0.5) {
       y--;
       if(y < 0) break;
