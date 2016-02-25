@@ -79,6 +79,8 @@ module.exports = function(data) {
     return 0;
   });
 
+  console.log(distances);
+
   if(distances[sd[0]] < 2) throw "not much space to wander"
 
   var direction;
