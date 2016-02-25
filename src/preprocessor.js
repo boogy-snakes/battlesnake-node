@@ -15,6 +15,7 @@ function preprocessor(){
 
 		data.current = toXY(snakeData[config.snake.id].coords[0]);
 		data.pmap = renderSnakes(snakeData, {x:data.width, y:data.height}, 1);
+		data.walls = data.walls || [];
 		data.pmap = renderWalls(data.pmap, data.walls, 1);
 
 		for(var id in snakeData) {
