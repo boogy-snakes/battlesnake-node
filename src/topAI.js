@@ -14,7 +14,7 @@ module.exports = function(data){
 	}
 
 	try{
-		return food(data);
+		return far(data);
 	}
 	catch(e) {
 		console.log(e);
@@ -38,7 +38,7 @@ module.exports = function(data){
 			catch(e) {
 				console.log(e);
 				console.log(e.stack);
-				console.log("try going to the middle")
+				console.log("go far away")
 				return far(data);
 			}
 		}
