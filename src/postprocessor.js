@@ -26,6 +26,7 @@ module.exports = function(){
 		// no path found, choose an open direction?
 		if(path.length == 0) {
 			console.log("no path found! uh oh!")
+			console.log(pmap);
 			if(current.x + 1  < map[0].length && map[current.y][current.x + 1] != 1) {
 				return "east";
 			}
