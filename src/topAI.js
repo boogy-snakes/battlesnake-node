@@ -20,7 +20,7 @@ module.exports = function(data){
 		console.log(e.stack);
 		try{
 			
-			if(data.snakes[config.snake.id].health > 50 || data.snakes[config.snake.id].coords.length > data.snakes[data.longestSnake].coords.length - 2)
+			if(data.snakes[config.snake.id].health > 50 || data.snakes[config.snake.id].coords.length > data.snakes[data.longestSnake].coords.length - 3)
 				throw "let's stay small"
 
 			console.log("wander")

@@ -26,16 +26,17 @@ module.exports = function(){
 		// no path found, choose an open direction?
 		if(path.length == 0) {
 			console.log("no path found! uh oh!")
+			
 			map[current.y][current.x] = "A";
 			map[target.y][target.y] = "B";
 			console.log(map);
-			if(current.x + 1  < map[0].length && map[current.y][current.x + 1] != 1) {
+			if(current.x + 1  < map[0].length && map[current.y][current.x + 1] < 1) {
 				return "east";
 			}
-			if(current.x - 1  >= 0  && map[current.y][current.x - 1] != 1) {
+			if(current.x - 1  >= 0  && map[current.y][current.x - 1] < 1) {
 				return "west";
 			}
-			if(current.y + 1  < map.length && map[current.y + 1][current.x] != 1) {
+			if(current.y + 1  < map.length && map[current.y + 1][current.x] < 1) {
 				return "south";
 			}
 			return "north";
