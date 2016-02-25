@@ -25,7 +25,7 @@ module.exports = function(data){
 		}
 		catch(e){
 			console.log(e);
-			console.log(e.stack);*/
+			console.log(e.stack);
 
 			try{
 				console.log("follow tail")
@@ -38,6 +38,6 @@ module.exports = function(data){
 				data.target = {x: Math.round(data.width/2), y:Math.round(data.height/2)};
 				return data;
 			}
-		//}
+		}
 	}
 };
