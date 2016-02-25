@@ -11,8 +11,7 @@ module.exports = function(data){
 	}
 
 	try{
-		return wander(data)
-		//return food(data);
+		return food(data);
 	}
 	catch(e) {
 		console.log(e);
