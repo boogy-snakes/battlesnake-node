@@ -14,7 +14,7 @@ module.exports = function(data){
 	}
 
 	try{
-		return far(data);
+		return food(data);
 	}
 	catch(e) {
 		console.log(e);
