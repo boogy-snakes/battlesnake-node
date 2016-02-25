@@ -3,6 +3,7 @@ var food = require('./basicAI.js').findClosestFood;
 var wander = require('./wanderAI.js');
 var tail = require('./followTailAI.js');
 var initAvoid = require('./initAvoidAI.js');
+var far = require('./farAI.js');
 
 var config = require('../config.json');
 
@@ -38,8 +39,7 @@ module.exports = function(data){
 				console.log(e);
 				console.log(e.stack);
 				console.log("try going to the middle")
-				data.target = {x: Math.round(data.width/2), y:Math.round(data.height/2)};
-				return data;
+				return far(data);
 			}
 		}
 	}
