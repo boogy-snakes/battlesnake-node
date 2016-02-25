@@ -20,5 +20,5 @@ module.exports = function(data) {
 		}
 	}
 	data.target = max;
-	return target;
+	return datas;
 }
