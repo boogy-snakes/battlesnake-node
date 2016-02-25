@@ -19,7 +19,10 @@ module.exports = function(data){
 		console.log(e);
 		console.log(e.stack);
 		try{
-			console.log(data.snakes[config.snake.id])
+			
+			if(data.snakes[config.snake.id].health > 50 || data.snakes[config.snake.id].coords.length > data.snakes[data.longestSnake].coords.length - 2)
+				throw "let's stay small"
+
 			console.log("wander")
 			return wander(data);
 		}

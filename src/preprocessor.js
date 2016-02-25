@@ -8,6 +8,8 @@ function preprocessor(){
 
 	function predict(data) {
 
+		var longestSnake = config.snake.id;
+
 		var snakeData = {};
 		for(var snake of data.snakes) {
 			snakeData[snake.id] = snake;
@@ -21,9 +23,15 @@ function preprocessor(){
 		for(var id in snakeData) {
 			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0.3);
 			snakeData[id].map = headsAs(snakeData[id].map, snakeData, id, 0.4);
+
+			if(snakeData[id].coords.length > snakeData[longestSnake].coords.length){
+				longestSnake = id;
+			}
+			
 		}
 
 		data.snakes = snakeData;
+		data.longest = longestSnake;
 
 		return data;
 	}
