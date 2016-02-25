@@ -4,6 +4,8 @@ var wander = require('./wanderAI.js');
 var tail = require('./followTailAI.js');
 var initAvoid = require('./initAvoidAI.js');
 
+var config = require('../config.json');
+
 module.exports = function(data){
 	
 	if(data.turn < 2) {
@@ -16,7 +18,8 @@ module.exports = function(data){
 	catch(e) {
 		console.log(e);
 		console.log(e.stack);
-		/*try{
+		try{
+			console.log(data.snakes[config.snake.id])
 			console.log("wander")
 			return wander(data);
 		}
