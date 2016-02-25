@@ -15,6 +15,7 @@ function preprocessor(){
 
 		data.current = toXY(snakeData[config.snake.id].coords[0]);
 		data.pmap = renderSnakes(snakeData, {x:data.width, y:data.height}, 1);
+		data.pmap = renderWalls(data.pmap, data.walls, 1);
 
 		for(var id in snakeData) {
 			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0.3);
@@ -45,8 +46,13 @@ function preprocessor(){
 		return smap;
 	}
 
-	function renderWalls(map, walls){
+	function renderWalls(map, walls, val){
 
+		for(var coord of walls) {
+			map[coord[1]][coord[0]] = val;
+		}
+
+		return map;
 	}
 
 	// shortens snake from the perspective of id
