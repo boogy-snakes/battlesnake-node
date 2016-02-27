@@ -24,7 +24,7 @@ module.exports = function(){
 		var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
 
 		// no path found, choose an open direction?
-		if(path.length == 0) {
+		if(path.length < 2) {
 			console.log("no path found! uh oh!")
 			
 			map[current.y][current.x] = "A";
