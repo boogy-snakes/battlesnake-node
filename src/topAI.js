@@ -20,9 +20,9 @@ module.exports = function(data){
 		console.log(e);
 		console.log(e.stack);
 		try{
-			
-			if((data.snakes[config.snake.id].health > 50 || data.snakes[config.snake.id].coords.length > data.snakes[data.longestSnake].coords.length - 3) && (data.snakes[config.snake.id].health > 30))
+			if((data.snakes[config.snake.id].health > 50 || data.snakes[config.snake.id].coords.length > data.snakes[data.longest].coords.length - 3) && (data.snakes[config.snake.id].health > 30))
 				throw "let's stay small"
+
 
 			console.log("wander")
 			return wander(data);
