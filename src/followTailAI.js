@@ -9,7 +9,7 @@ module.exports = function(data) {
 
 	console.log(snake.coords);
 
-	var path = findPath(snake.map, snake.coords[0], snake.coords[snake.coords.length - 1], 0.5);
+	var path = findPath(snake.map, snake.coords[0], snake.coords[snake.coords.length - 1], 0.3);
 
 	if (path.length == 0) 
 		throw "can't make it to the tail"

@@ -21,7 +21,7 @@ function preprocessor(){
 		data.pmap = renderWalls(data.pmap, data.walls, 1);
 
 		for(var id in snakeData) {
-			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0.3);
+			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0.2);
 			snakeData[id].map = headsAs(snakeData[id].map, snakeData, id, 0.4);
 
 			if(snakeData[id].coords.length > snakeData[longestSnake].coords.length){
