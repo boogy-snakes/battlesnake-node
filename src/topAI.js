@@ -17,6 +17,7 @@ module.exports = function(data){
 	try {
 		
 		return block(data);
+	}
 	catch(e) {
 		console.log(e);
 		console.log(e.stack);
