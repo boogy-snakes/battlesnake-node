@@ -4,6 +4,7 @@ var wander = require('./wanderAI.js');
 var tail = require('./followTailAI.js');
 var initAvoid = require('./initAvoidAI.js');
 var far = require('./farAI.js');
+var block = require('./blockAI.js');
 
 var config = require('../config.json');
 
@@ -13,33 +14,41 @@ module.exports = function(data){
 		return initAvoid(data);
 	}
 
-	try{
-		return food(data);
-	}
+	try {
+		
+		return block(data);
 	catch(e) {
 		console.log(e);
 		console.log(e.stack);
 		try{
+
 			if((data.snakes[config.snake.id].health > 50 || data.snakes[config.snake.id].coords.length > data.snakes[data.longest].coords.length - 3) && (data.snakes[config.snake.id].health > 30))
 				throw "let's stay small"
-
-
-			console.log("wander")
-			return wander(data);
+			
+			return food(data);
 		}
-		catch(e){
+		catch(e) {
 			console.log(e);
 			console.log(e.stack);
-
 			try{
-				console.log("follow tail")
-				return tail(data);
+
+				console.log("wander")
+				return wander(data);
 			}
-			catch(e) {
+			catch(e){
 				console.log(e);
 				console.log(e.stack);
-				console.log("go far away")
-				return far(data);
+
+				try{
+					console.log("follow tail")
+					return tail(data);
+				}
+				catch(e) {
+					console.log(e);
+					console.log(e.stack);
+					console.log("go far away")
+					return far(data);
+				}
 			}
 		}
 	}
