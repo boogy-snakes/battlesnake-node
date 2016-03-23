@@ -26,7 +26,7 @@ function preprocessor(){
 		data.dfs = dfs(data.graph);
 
 		for(var id in snakeData) {
-			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0.2);
+			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0);
 			snakeData[id].map = headsAs(snakeData[id].map, snakeData, id, 0.4);
 
 			if(snakeData[id].coords.length > snakeData[longestSnake].coords.length){
