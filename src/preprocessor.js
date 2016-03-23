@@ -264,21 +264,25 @@ function preprocessor(){
 			// adjacent squares
 			if(head.x + 1 < map[0].length){
 				if(buffered[head.y][head.x + 1] != 1){
+					console.log(buffered[head.y][head.x + 1]);
 					buffered[head.y][head.x + 1].snakes.add(snake.id);
 				}
 			}
 			if(head.x - 1 >= 0){
 				if(buffered[head.y][head.x - 1] != 1) {
+					console.log(buffered[head.y][head.x - 1]);
 					buffered[head.y][head.x - 1].snakes.add(snake.id);
 				}
 			}
 			if(head.y + 1 < map.length){
 				if(buffered[head.y + 1][head.x]) {
+					console.log(buffered[head.y + 1][head.x]);
 					buffered[head.y + 1][head.x].snakes.add(snake.id);
 				}
 			}
 			if(head.y - 1 >= 0){
 				if(buffered[head.y - 1][head.x] != 1) {
+					console.log(buffered[head.y - 1][head.x]);
 					buffered[head.y - 1][head.x].snakes.add(snake.id);
 				}
 			}
