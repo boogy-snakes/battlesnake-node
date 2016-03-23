@@ -328,6 +328,11 @@ function preprocessor(){
 			node.edges.sort(function(a,b){a.name - b.name});
 		}
 
+		for(j = 0; j < map.length; j++){
+			for(i = 0; i < map[0].length; i++) {
+				buffered[j][i] = map[j][i];
+			}
+		}
 
 		for(var node of nodes) {
 			for(mem of node.members) {
@@ -445,6 +450,7 @@ function preprocessor(){
 			node[1].cut = false;
 		}
 	}
+	console.dir(visited);
 
 	return visited;
 }
