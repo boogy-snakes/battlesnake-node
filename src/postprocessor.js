@@ -21,6 +21,9 @@ module.exports = function(){
 			}
 		}
 
+		console.log(current, target);
+		console.log(map.length, map[0].length);
+
 		map[current.y][current.x] = "A";
 		map[target.y][target.x] = "B";
 		console.log(map);

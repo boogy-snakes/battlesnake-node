@@ -103,15 +103,13 @@ module.exports = function(data) {
           }
           return b.edges.length - a.edges.length;
         });
-        data.target = options[0];
+        data.target = options[0].members[0];
         
         return data;
       }
   }
 
-  direction = distances[sd[0]];
-
-  
+  direction = sd[0];
 
   switch(direction){
   case "n":
@@ -127,6 +125,7 @@ module.exports = function(data) {
     data.target = {x: current.x-1, y: current.y};
     break;
   default:
+    data.target = {x: current.x-1, y: current.y};
   }
 
   if(findPath(pmap, [current.x, current.y], [data.target.x, data.target.y], 0.3).length<=0)
