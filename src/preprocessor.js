@@ -4,6 +4,7 @@ var config = require('../config.json');
 var distance = require('./core.js').distance;
 var toXY = require('./core.js').toXY;
 var findPath = require('./core.js').findPath;
+var UnionFind = require('unionfind');
 
 function preprocessor(){
 
@@ -328,7 +329,7 @@ function preprocessor(){
 		}
 
 
-		for(var node of graph.nodes) {
+		for(var node of nodes) {
 			for(mem of node.members) {
 				buffered[mem.y][mem.x] = node.name;
 			}
