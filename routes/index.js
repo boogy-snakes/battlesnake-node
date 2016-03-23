@@ -45,11 +45,11 @@ router.post(config.routes.move, function (req, res) {
 
     console.log('preprocessed')
 
+    data.cutoff = 0.5 //might be changed by an ai
+
     data = ai(data);
 
     console.log('ai run');
-
-    data.cutoff = 0.5
 
     // Response data
     var response = {

@@ -21,15 +21,16 @@ module.exports = function(){
 			}
 		}
 
+		map[current.y][current.x] = "A";
+		map[target.y][target.y] = "B";
+		console.log(map);
+
 		var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
 
 		// no path found, choose an open direction?
 		if(path.length < 2) {
 			console.log("no path found! uh oh!")
 			
-			map[current.y][current.x] = "A";
-			map[target.y][target.y] = "B";
-			console.log(map);
 			if(current.x + 1  < map[0].length && map[current.y][current.x + 1] < 1) {
 				return "east";
 			}

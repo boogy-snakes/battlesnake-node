@@ -14,7 +14,7 @@ module.exports = function(data) {
 	if(cuts.length < 1) {
 		throw "no easy blocks";
 	}
-
+	data.cutoff = 0.3;
 	cuts.sort(function(a,b){a.edges.length - b.edges.length});
 	data.target = cuts[0].members[0];
 
