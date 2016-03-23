@@ -337,19 +337,39 @@ function preprocessor(){
 		console.log(buffered);
 		console.log();
 
-		return {nodes: nodes, edges: edges};
+		// need to find connected components so we can effectively do dfs (union/find!)
+
+		var uf = new UnionFind(nodes.length);
+
+		for(var nd1 of nodes) {
+			for(var nd2 of nd1.edges) {
+				if( !uf.connected(nd1.name-3, nd2.name-3) ){
+					uf.union(uf.find(nd1.name-3), uf.find(nd2.name-3));
+				}
+			}
+		}
+		var roots = new Set();
+		for(var nd1 of nodes) {
+			roots.add(uf.find(nd1.name -3)+3);
+		}
+		return {nodes: nodes, edges: edges, roots:roots};
 
 	}
 
 	function dfs(graph) {
 
 	var nodes = graph.nodes;
-	var stack = [{parent: nodes[0].name, next: nodes[0]}];
+	var stack = [];
 	var visited = new Map();
-	var current = nodes[0];
+	var current;
 	var i = 1;
 	var parent;
 	var vals;
+
+	for(var nd of graph.roots) {
+
+		stack.push({parent: nd, next: nodes.find(function(node){return node.name == nd})})
+	}
 
 	while(visited.size < nodes.length) {
 		
@@ -376,7 +396,6 @@ function preprocessor(){
 			parent.children.push(child[0]);
 		}
 	}
-
 
 	function denom(name) {
 		var vals = visited.get(name);

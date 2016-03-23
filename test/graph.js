@@ -2,6 +2,7 @@ var config = require('../config.json');
 var distance = require('../src/core.js').distance;
 var toXY = require('../src/core.js').toXY;
 var findPath = require('../src/core.js').findPath;
+var UnionFind = require('unionfind');
 // this is to help with being more agressive. 
 // We can find how to block other snakes in
 // based on which node they're in, and how that connects to others.
@@ -162,7 +163,7 @@ function findGraph(map, snakes, buff){
 			}
 
 			// check for a path
-			if(findPath(edgesMap, [nd1.x,nd1.y], [nd2.x,nd2.y], 0.5).length > 2) {
+			if(findPath(edgesMap, [nd1.x,nd1.y], [nd2.x,nd2.y], 0.5).length > 0) {
 				edges.push([nd1,nd2]);
 				nd1.edges.push(nd2);
 			}
@@ -176,7 +177,25 @@ function findGraph(map, snakes, buff){
 		node.edges.sort(function(a,b){a.name - b.name});
 	}
 
-	return {nodes: nodes, edges: edges};
+	// need to find connected components so we can effectively do dfs (union/find!)
+
+
+
+	var uf = new UnionFind(nodes.length);
+
+	for(var nd1 of nodes) {
+		for(var nd2 of nd1.edges) {
+			if( !uf.connected(nd1.name-3, nd2.name-3) ){
+				uf.union(uf.find(nd1.name-3), uf.find(nd2.name-3));
+			}
+		}
+	}
+	var roots = new Set();
+	for(var nd1 of nodes) {
+		roots.add(uf.find(nd1.name -3)+3);
+	}
+
+	return {nodes: nodes, edges: edges, roots:roots};
 
 }
 
@@ -185,9 +204,9 @@ function findGraph(map, snakes, buff){
 var map = [
 [0,0,1,1,1,1,1,1,1,1],
 [0,0,1,1,1,1,1,1,1,1],
-[0,0,1,1,0,0,0,0,0,0],
-[0,0,0,1,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0]
+[0,0,1,1,0,0,0,1,0,0],
+[0,0,0,1,0,0,0,1,0,0],
+[0,0,0,0,0,0,0,1,0,0]
 ];
 
 var snakes = [{id: "A", coords: [[3,3]]},{id: "B", coords: [[2,2]]}];
@@ -209,12 +228,16 @@ console.log(map);
 function dfs(graph) {
 
 	var nodes = graph.nodes;
-	var stack = [{parent: nodes[0].name, next: nodes[0]}];
+	var stack = [];
 	var visited = new Map();
-	var current = nodes[0];
+	var current;
 	var i = 1;
 	var parent;
 	var vals;
+
+	for(var nd of graph.roots) {
+		stack.push({parent: nd, next: nodes.find(function(node){return node.name == nd})})
+	}
 
 	while(visited.size < nodes.length) {
 		
@@ -249,7 +272,6 @@ function dfs(graph) {
 		var minBack = vals.i;
 		for(var back of vals.back) {
 			var valsBack = visited.get(back.next.name);
-			console.log(valsBack);
 			if(valsBack.i < minBack) {
 				minBack = valsBack.i;
 			}

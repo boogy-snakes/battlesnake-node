@@ -18,17 +18,15 @@
     "morgan": "^1.6.1",
     "nodemon": "*",
     "pathfinding": "^0.4.17",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "unionfind": "0.0.3"
   },
   "devDependencies": {},
   "main": "index.js",
   "engines": {
-    "node": "4.x"
+    "node": "5.5.0"
   },
   "scripts": {
     "start": "nf start"
-  },
-  "engines": {
-    "node": "5.5.0"
   }
 }
