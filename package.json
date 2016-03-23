@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "nf start"
-  }
+  },
   "engines": {
     "node": "5.5.0"
   }
