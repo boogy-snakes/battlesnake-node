@@ -16,6 +16,7 @@ module.exports = function(data) {
 	}
 
 	cuts.sort(function(a,b){a.edges.length - b.edges.length});
+	data.target = cuts[0].members[0];
 
-	return cuts[0].members[0];
+	return data;
 }
