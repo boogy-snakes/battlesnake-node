@@ -89,6 +89,7 @@ module.exports = function(data) {
 
   // we might make a bad choice
   } else if(distances[sd[0]] - distances[sd[1]] < 2 && distances[sd[0]] < 5) {
+      
       var options = [];
       for(var node of data.dfs) {
         if(node[1].snakes.has(config.snake.id)){ 
@@ -103,6 +104,7 @@ module.exports = function(data) {
           return b.edges.length - a.edges.length;
         });
         data.target = options[0];
+        
         return data;
       }
   }
@@ -127,7 +129,7 @@ module.exports = function(data) {
   default:
   }
 
-  if(findPath(pmap, [current.x, current.y], [data.target.x,data.target.y], 0.3).length<=0)
+  if(findPath(pmap, [current.x, current.y], [data.target.x, data.target.y], 0.3).length<=0)
     throw "path is likely blocked, try following tail"
 
   data.cutoff = 0.3;
