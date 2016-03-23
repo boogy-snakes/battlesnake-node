@@ -182,10 +182,10 @@ function preprocessor(){
 				buffered[j].push(set);
 			}
 		}
-		console.dir(map);
-		console.log();
-		console.dir(buffered);
-		console.log();
+		//console.dir(map);
+		//console.log();
+		//console.dir(buffered);
+		//console.log();
 
 		// make space adjacent to heads
 		var head;
@@ -206,7 +206,7 @@ function preprocessor(){
 			}
 		}
 
-		console.dir(buffered);
+		//console.dir(buffered);
 
 		// union find on it
 		var graph = [];

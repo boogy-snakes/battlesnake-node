@@ -109,6 +109,6 @@ module.exports = function(data) {
     break;
   default:
   }
-
+  data.cutoff = 0.3;
   return data;
 };
