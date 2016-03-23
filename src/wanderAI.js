@@ -85,7 +85,7 @@ module.exports = function(data) {
 
   var direction;
   if(distances[sd[0]] == distances[sd[1]]) {
-
+    throw "path lengths are equal, follow tail instead"
     direction = sd[Math.round(Math.random())];
 
   } else {
