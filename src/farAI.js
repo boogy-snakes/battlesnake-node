@@ -11,7 +11,7 @@ module.exports = function(data) {
 	for(var y = 0; y < data.height; y++) {
 		paths.push([]);
 		for(var x = 0; x < data.width; x++) {
-			paths[y][x] = findPath(snake.map, snake.coords[0], [x,y], 0.4);
+			paths[y][x] = findPath(snake.map, snake.coords[0], [x,y], 0.3);
 			if(paths[y][x].length > maxl) {
 				max.x  = x;
 				max.y = y;
@@ -19,6 +19,7 @@ module.exports = function(data) {
 			}
 		}
 	}
+	data.cutoff = 0.3;
 	data.target = max;
 	return data;
 }
