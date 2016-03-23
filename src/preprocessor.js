@@ -243,7 +243,6 @@ function preprocessor(){
 							var change = aboveNode.members.length <= leftNode.members.length ? aboveNode : leftNode;
 
 							for(var nd of change.members) {
-								//console.log(nd);
 								buffered[nd.y][nd.x] = keep;
 								keep.members.push(nd);
 							}
@@ -328,6 +327,16 @@ function preprocessor(){
 			node.edges.sort(function(a,b){a.name - b.name});
 		}
 
+
+		for(var node of graph.nodes) {
+			for(mem of node.members) {
+				buffered[mem.y][mem.x] = node.name;
+			}
+		}
+
+		console.log(buffered);
+		console.log();
+
 		return {nodes: nodes, edges: edges};
 
 	}
@@ -357,7 +366,8 @@ function preprocessor(){
 
 		visited.set(current.name,  {i: i, parent: vals.parent, back: back, children:[], snakes: current.snakes, edges: current.edges, members: current.members});
 		
-		i++;	
+		i++;
+		if(stack.length == 0) break;
 	}
 
 	for(var child of visited){
@@ -375,7 +385,6 @@ function preprocessor(){
 		var minBack = vals.i;
 		for(var back of vals.back) {
 			var valsBack = visited.get(back.next.name);
-			console.log(valsBack);
 			if(valsBack.i < minBack) {
 				minBack = valsBack.i;
 			}
