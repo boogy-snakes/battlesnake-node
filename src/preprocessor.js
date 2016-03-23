@@ -26,9 +26,6 @@ function preprocessor(){
 		data.dfs = dfs(data.graph);
 
 		for(var id in snakeData) {
-			console.log(snakeData[id].coords.length, snakeData[id].coords.reduce(function(n,m){return n+"["+m[0]+","+m[1]+"]"}), "");
-
-
 
 			snakeData[id].map = shortenAs(data.pmap, snakeData, id, 0);
 			snakeData[id].map = headsAs(snakeData[id].map, snakeData, id, 0.4);
@@ -87,9 +84,14 @@ function preprocessor(){
 
 		// shorten each snake
 		for(var id in snakes){
+
+			var growing = 0;
+			if(snakes[id].coords.length > new Set(snakes[id].coords.map(x=>x.toString())).size)
+				growing = 1;
+
 			var coords = snakes[id].coords.filter(function(coord, index, array) {	
-				// +1 to buffer on whether the snake eats food soon
-				return distance(ourCoords, coord) >= array.length - index + 1;
+				// +growing to buffer on whether the snake eats food soon
+				return distance(ourCoords, coord) >= array.length - index + growing;
 			});
 
 			coords.forEach(function(loc) {
