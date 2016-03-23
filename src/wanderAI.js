@@ -86,13 +86,30 @@ module.exports = function(data) {
   var direction;
   if(distances[sd[0]] == distances[sd[1]]) {
     throw "path lengths are equal, follow tail instead"
-    direction = sd[Math.round(Math.random())];
 
-  } else {
-    direction = Object.keys(distances).reduce(function(a, b) {
-      return distances[a] > distances[b] ? a : b
-    });
+  // we might make a bad choice
+  } else if(distances[sd[0]] - distances[sd[1]] < 2 && distances[sd[0]] < 5) {
+      var options = [];
+      for(var node of data.dfs) {
+        if(node[1].snakes.has(config.snake.id)){ 
+          options.push(node[1]);
+        }
+      }
+      if(options.length > 0) {
+        options.sort(function(a,b){
+          if(a.edges.length == b.edges.length){
+            return b.members.length - a.members.length;
+          }
+          return b.edges.length - a.edges.length;
+        });
+        data.target = options[0];
+        return data;
+      }
   }
+
+  direction = distances[sd[0]];
+
+  
 
   switch(direction){
   case "n":

@@ -22,7 +22,7 @@ module.exports = function(){
 		}
 
 		map[current.y][current.x] = "A";
-		map[target.y][target.y] = "B";
+		map[target.y][target.x] = "B";
 		console.log(map);
 
 		var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
