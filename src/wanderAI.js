@@ -109,6 +109,11 @@ module.exports = function(data) {
     break;
   default:
   }
+
+  if(findPath(pmap, [current.x, current.y], [data.target.x,data.target.y], 0.3).length<=0)
+    throw "path is likely blocked, try following tail"
+
   data.cutoff = 0.3;
+
   return data;
 };

@@ -6,7 +6,7 @@ module.exports = function(data) {
 	
 	var cuts = [];
 	for(var node of data.dfs) {
-		if(node[1].cut && node[1].members.length < 4 && node[1].snakes.has(config.snake.id)){ 
+		if(node[1].cut && node[1].members.length < 4 + (data.snakes[config.snake.id].coords.length /4) && node[1].snakes.has(config.snake.id)){ 
 			cuts.push(node[1]);
 		}
 	}
