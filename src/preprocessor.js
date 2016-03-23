@@ -456,7 +456,7 @@ function preprocessor(){
 			node[1].cut = false;
 		}
 	}
-	console.dir(visited);
+	console.dir(visited.map(function(x){return{name: x[0], cut: x[1].cut, edges: x[1].edges.map(y=>y.name), size: x[1].members.length}}));
 
 	return visited;
 }
