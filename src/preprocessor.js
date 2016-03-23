@@ -257,7 +257,7 @@ function preprocessor(){
 			}
 		}
 
-		// add the heads to the nodess they couuld be in
+		// add the heads to the nodess they could be in
 		var head;
 		for(snake of snakes) {
 			head = toXY(snake.coords[0]);
