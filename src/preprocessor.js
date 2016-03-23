@@ -26,7 +26,7 @@ function preprocessor(){
 		data.dfs = dfs(data.graph);
 
 		for(var id in snakeData) {
-			console.log(snakeData[id].coords.length + "|" + snakeData[id].coords.reduce(function(n,m){return n+"["+m[0]+","+m[1]"]"}), "");
+			console.log(snakeData[id].coords.length, snakeData[id].coords.reduce(function(n,m){return n+"["+m[0]+","+m[1]+"]"}), "");
 
 
 
