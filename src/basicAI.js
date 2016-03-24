@@ -80,6 +80,10 @@ module.exports = {
       for(var coord of sCoords) {
         map[coord[1]][coord[0]] = 1;
       }
+      console.log(s.coords.reverse());
+      console.log(fd.path);
+      console.log(s.coords.reverse().push(...(fd.path)));
+      console.log(fd.path.length - futureLength - 1);
 
       var tail = s.coords.reverse().push(...(fd.path))[fd.path.length - futureLength - 1];
       console.log(tail);
