@@ -71,9 +71,6 @@ module.exports = {
         }
       }
 
-      // add our snake from after we've gotten the food
-      for(var i = 0; i < fd.path.length - 1; i++)
-
       var sCoords = s.coords.slice(0, fd.path.length - 2);
       var futureLength = s.coords.length + 1;
 
@@ -85,7 +82,8 @@ module.exports = {
       var slc = fd.path.slice(1);
       rev.push(...slc);
       console.log(rev);
-      console.log(rev.length - futureLength - 1);
+      console.log()
+      console.log( rev.length, futureLength, rev.length - futureLength - 1);
 
       var tail = rev[rev.length - futureLength - 1];
       console.log(tail);
