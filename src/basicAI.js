@@ -80,9 +80,8 @@ module.exports = {
       for(var coord of sCoords) {
         map[coord[1]][coord[0]] = 1;
       }
-      console.log(s.coords.reverse());
-      console.log(fd.path);
-      var rev = s.coords.reverse();
+
+      var rev = Array.from(s.coords).reverse();
       var slc = fd.path.slice(1);
       rev.push(...slc);
       console.log(rev);
