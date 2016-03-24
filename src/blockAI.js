@@ -48,6 +48,7 @@ module.exports = function(data) {
 
 				// it cuts a subgraph, need to check for snakes in the subgraph
 				if(adj.cut) {
+					console.log(adj.name);
 
 					toVisit = new Set([adj.edges.map(x=>x.name)]);
 					visited = new Set(adj.name);
@@ -96,7 +97,7 @@ module.exports = function(data) {
 		for(n1 of ours) {
 			m1 = data.dfs.get(n1.name).members;
 			for(n2 of n1.adj) {
-				m2 = data.dfs.get(n2.name).members;
+				m2 = data.dfs.get(n2).members;
 
 				for(xy1 of m1) {
 					for(xy2 of m2){
