@@ -1,24 +1,42 @@
 var config = require('../config.json');
 var toXY = require('./core.js').toXY;
 var findPath = require('./core.js').findPath;
+var UnionFind = require('unionfind');
 
 module.exports = function(data) {
 	
 
 	// advanced block
 	if(data.snakes[config.snake.id].health > 30) {
-
+		console.log("advanced block")
 		// check conditions:
 		// * there are cut edges adjancent to our nodes
-		// * they are small (members<4)
+		// * they are small (members<4^2)
 		// * they contain other snakes
+
+		// names are shifted up by 3
+		var uf = new UnionFind(nodes.size);
+		for(var node of data.dfs) {
+			if(node[1].cut) continue;
+			for(edge of node[1].edges) {
+				if(edge.cut) continue;
+
+				if(uf.connected(node[0]-3, edge.name-3)) continue;
+
+				uf.union(node[0]-3, edge.name-3);
+			}	
+		}
+		// now uf should be what's connected when yuu take out the cut nodes
 
 		//find ours
 
 		var ours = [];
-		for(node of data.dfs) {
-			if(node[1].snakes.has(config.snake.id) && node[1].cut)
-				ours.push({name:node[0], adj:[]});
+		var oursNames = new Set();
+		for(var node of data.dfs) {
+			if(node[1].snakes.has(config.snake.id)) {
+				ours.push({name:node[0], adj:new Set()});
+				oursNames.add(node[0]);
+			}
 		}
 
 
@@ -26,19 +44,51 @@ module.exports = function(data) {
 		var adjs;
 		for(var node of ours) {
 			adjs = data.dfs.get(node.name).edges;
-			for(var adj of adjs){
-				if(adj.cut && adj.members.length < 4 && adj.snakes.size > 0 + (adj.snakes.has(config.snake.id) ? 1 : 0)){
-					node.adj.push(adj.name);
+			for(var adj of adjs) {
+
+				// it cuts a subgraph, need to check for snakes in the subgraph
+				if(adj.cut) {
+
+					toVisit = new Set([adj.edges.map(x=>x.name)]);
+					visited = new Set(adj.name);
+
+					// gather all the relevant nodes
+					for(var nd of toVisit) {
+						if(!uf.connected(nd-3, node.name-3)) {
+							visited.add(nd);
+							toVisit.add(data.dfs.get(nd).edges.map(x=>x.name));
+						}
+					}
+					console.log(visited);
+
+					var snakes = new Set();
+					var s;
+					for(nd of visited) {
+						s = data.dfs.get(node.name).snakes;
+						for(snake of s) {
+							snakes.add(snake);
+						}
+					}
+					console.log(snakes);
+					if(snakes.size > 0 + (snakes.has(config.snake.id) ? 1 : 0)){
+						node.adj.add(adj.name);
+					}
+
+				}
+				// its a leaf
+				if(adj.edges.length == 1) {
+					if(adj.snakes.size > 0 + (adj.snakes.has(config.snake.id) ? 1 : 0)) {
+						node.adj.add(adj.name);
+					}
 				}
 			}
 		}
-
-		console.log("advanced block")
+		console.log("found:");
 		console.log(ours);
 
 		// calculate the closest distance
-		var m1,m2, xy1, xy2;
-		var n1,n2;
+		var m1, m2, xy1, xy2;
+		var n1, n2;
 		var length;
 		var m1xy = null;
 		var m2xy = null;
@@ -57,7 +107,7 @@ module.exports = function(data) {
 							m2xy = xy2;
 						}
 					}
-				} 
+				}
 			}
 		}
 
@@ -72,7 +122,7 @@ module.exports = function(data) {
 
 	var cuts = [];
 	for(var node of data.dfs) {
-		if(node[1].cut && node[1].members.length < 4 + (data.snakes[config.snake.id].coords.length /4) && node[1].snakes.has(config.snake.id)){ 
+		if(node[1].cut && node[1].members.length < 12 + (data.snakes[config.snake.id].coords.length /4) && node[1].snakes.has(config.snake.id)){ 
 			cuts.push(node[1]);
 		}
 	}
