@@ -81,7 +81,7 @@ module.exports = {
         map[coord[1]][coord[0]] = 1;
       }
 
-      var tail; = s.coords.reverse().push(...(fd.path))[fd.path.length - futureLength - 1];
+      var tail = s.coords.reverse().push(...(fd.path))[fd.path.length - futureLength - 1];
 
       // add the path we'll take
       for(var i = 1; i < fd.path.length-2; i++) {
