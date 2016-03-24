@@ -82,7 +82,10 @@ module.exports = {
       }
       console.log(s.coords.reverse());
       console.log(fd.path);
-      console.log(s.coords.reverse().push(...fd.path.slice(1)));
+      var rev = s.coords.reverse();
+      var slc = fd.path.slice(1);
+      var full = rev.push(...slc);
+      console.log(full);
       console.log(fd.path.length -1 + s.coords.length - futureLength - 1);
 
       var tail = s.coords.reverse().push(...fd.path.slice(1))[fd.path.length -1 + s.coords.length - futureLength - 1];
