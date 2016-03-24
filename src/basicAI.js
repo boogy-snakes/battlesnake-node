@@ -83,9 +83,9 @@ module.exports = {
       rev.push(...slc);
       console.log(rev);
       console.log()
-      console.log( rev.length, futureLength, rev.length - futureLength - 1);
+      console.log( rev.length, futureLength, rev.length - futureLength);
 
-      var tail = rev[rev.length - futureLength - 1];
+      var tail = rev[rev.length - futureLength];
       console.log(tail);
       // add the path we'll take
       for(var i = 1; i < fd.path.length-2; i++) {
