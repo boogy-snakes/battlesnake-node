@@ -74,30 +74,29 @@ module.exports = {
       // add our snake from after we've gotten the food
       for(var i = 0; i < fd.path.length - 1; i++)
 
-
-
       var sCoords = s.coords.slice(0, fd.path.length - 2);
-      var tail;
       var futureLength = s.coords.length + 1;
-      if(sCoords.length > 0) {
-        tail = sCoords.slice(-1)[0];
-      } else {
-        tail = fd.path[path.length - futureLength];
-      }
-      if(!tail) {
-        tail = s.coords[s.coords.length-1];
-      }
 
       for(var coord of sCoords) {
         map[coord[1]][coord[0]] = 1;
       }
 
+      var tail; = s.coords.reverse().push(...(fd.path))[fd.path.length - futureLength - 1];
+
       // add the path we'll take
       for(var i = 1; i < fd.path.length-2; i++) {
         map[fd.path[i][1]][fd.path[i][0]] = 1;
       }
+      map[tail[1]][tail[0]] = 0;
 
-      return findPath(map, fd.loc, tail, 0.5).length;
+      var pBack = findPath(map, fd.loc, tail, 0.5);
+
+      map[fd.loc[1]][fd.loc[0]] = "F"
+      map[tail[1]][tail[0]] = "T"
+
+      console.log(map)
+
+      return pBack.length;
 
     })
 
