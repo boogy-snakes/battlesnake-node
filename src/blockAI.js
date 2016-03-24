@@ -93,7 +93,7 @@ module.exports = function(data) {
 		var length;
 		var m1xy = null;
 		var m2xy = null;
-		var minLenth = 50000000; // for tracking the minimum, and where we need to go
+		var minLength = 50000000; // for tracking the minimum, and where we need to go
 		for(n1 of ours) {
 			m1 = data.dfs.get(n1.name).members;
 			for(n2 of n1.adj) {
