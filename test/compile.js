@@ -7,5 +7,6 @@ require('../src/initAvoidAI.js');
 require('../src/postprocessor.js');
 require('../src/preprocessor.js');
 require('../src/topAI.js');
+require('../src/blockAI.js');
 
 
