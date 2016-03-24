@@ -82,10 +82,10 @@ module.exports = {
       }
       console.log(s.coords.reverse());
       console.log(fd.path);
-      console.log(s.coords.reverse().push(...(fd.path)));
-      console.log(fd.path.length - futureLength - 1);
+      console.log(s.coords.reverse().push(...fd.path));
+      console.log(fd.path.length + s.coords.length - futureLength - 1);
 
-      var tail = s.coords.reverse().push(...(fd.path))[fd.path.length - futureLength - 1];
+      var tail = s.coords.reverse().push(...fd.path)[fd.path.length + s.coords.length - futureLength - 1];
       console.log(tail);
       // add the path we'll take
       for(var i = 1; i < fd.path.length-2; i++) {
