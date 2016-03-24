@@ -82,11 +82,12 @@ module.exports = {
       }
 
       var tail = s.coords.reverse().push(...(fd.path))[fd.path.length - futureLength - 1];
-
+      console.log(tail);
       // add the path we'll take
       for(var i = 1; i < fd.path.length-2; i++) {
         map[fd.path[i][1]][fd.path[i][0]] = 1;
       }
+
       map[tail[1]][tail[0]] = 0;
 
       var pBack = findPath(map, fd.loc, tail, 0.5);
