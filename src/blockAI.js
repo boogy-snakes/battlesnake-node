@@ -15,7 +15,7 @@ module.exports = function(data) {
 		// * they contain other snakes
 
 		// names are shifted up by 3
-		var uf = new UnionFind(nodes.size);
+		var uf = new UnionFind(data.dfs.size);
 		for(var node of data.dfs) {
 			if(node[1].cut) continue;
 			for(edge of node[1].edges) {
