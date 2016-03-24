@@ -17,7 +17,7 @@ module.exports = function(data) {
 
 		var ours = [];
 		for(node of data.dfs) {
-			if(node[1].snakes.has(config.snake.id))
+			if(node[1].snakes.has(config.snake.id) && node[1].cut)
 				ours.push({name:node[0], adj:[]});
 		}
 
@@ -45,7 +45,7 @@ module.exports = function(data) {
 		var minLenth = 50000000; // for tracking the minimum, and where we need to go
 		for(n1 of ours) {
 			m1 = data.dfs.get(n1.name).members;
-			for(n2 of ours.adj) {
+			for(n2 of n1.adj) {
 				m2 = data.dfs.get(n2.name).members;
 
 				for(xy1 of m1) {
