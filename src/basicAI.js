@@ -46,6 +46,7 @@ module.exports = {
     for(var d in distances) {
       if(distances[d].snake == config.snake.id) {
         ourDistances.push({dist: distances[d].length, loc:d.split(','), path: distances[d].path});
+      
       //make sure we don't go to ones that are about to be filled
       } else {
         pr = 0.4
@@ -70,11 +71,33 @@ module.exports = {
         }
       }
 
+      // add our snake from after we've gotten the food
+      for(var i = 0; i < fd.path.length - 1; i++)
+
+
+
+      var sCoords = s.coords.slice(0, fd.path.length - 2);
+      var tail;
+      var futureLength = s.coords.length + 1;
+      if(sCoords.length > 0) {
+        tail = sCoords.slice(-1)[0];
+      } else {
+        tail = fd.path[path.length - futureLength];
+      }
+      if(!tail) {
+        tail = s.coords[s.coords.length-1];
+      }
+
+      for(var coord of sCoords) {
+        map[coord[1]][coord[0]] = 1;
+      }
+
+      // add the path we'll take
       for(var i = 1; i < fd.path.length-2; i++) {
         map[fd.path[i][1]][fd.path[i][0]] = 1;
       }
 
-      return findPath(map, fd.loc, s.coords[s.coords.length-1], 0.5).length;
+      return findPath(map, fd.loc, tail, 0.5).length;
 
     })
 

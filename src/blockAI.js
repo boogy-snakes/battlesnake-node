@@ -7,7 +7,7 @@ module.exports = function(data) {
 	
 
 	// advanced block
-	if(data.snakes[config.snake.id].health > 30) {
+	if(data.snakes[config.snake.id].health > 40) {
 		console.log("advanced block")
 		// check conditions:
 		// * there are cut edges adjancent to our nodes
