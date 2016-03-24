@@ -21,16 +21,20 @@ module.exports = function(data) {
 				ours.push({name:node[0], adj:[]});
 		}
 
+
 		// find appropriate adjacents
 		var adjs;
 		for(var node of ours) {
 			adjs = data.dfs.get(node.name).edges;
 			for(var adj of adjs){
-				if(adj.cut && adj.members.length < 4 && adj.snakes.size > 0 + adj.snakes.has(config.snake.id) ? 1 : 0){
+				if(adj.cut && adj.members.length < 4 && adj.snakes.size > 0 + (adj.snakes.has(config.snake.id) ? 1 : 0)){
 					node.adj.push(adj.name);
 				}
 			}
 		}
+
+		console.log("advanced block")
+		console.log(ours);
 
 		// calculate the closest distance
 		var m1,m2, xy1, xy2;
@@ -58,6 +62,7 @@ module.exports = function(data) {
 		}
 
 		if(m1xy) {
+			console.log("found advanced block")
 			data.target = m1xy;
 			return data;
 		}
