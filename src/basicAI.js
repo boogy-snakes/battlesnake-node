@@ -24,7 +24,7 @@ module.exports = {
                 distances[f].length = path.length;
                 distances[f].snakeLength = snake.coords.length;
                 distances[f].path = path;
-            } else if(distances[f].snake == config.snake.id) {
+            } else if(distances[f].snake == data.you) {
                 console.log('our snake should avoid it')
                 distances[f].snake = id;
                 distances[f].length = path.length;
@@ -44,7 +44,7 @@ module.exports = {
     var pr = 0;
     var ourDistances = [];
     for(var d in distances) {
-      if(distances[d].snake == config.snake.id) {
+      if(distances[d].snake == data.you) {
         ourDistances.push({dist: distances[d].length, loc:d.split(','), path: distances[d].path});
       
       //make sure we don't go to ones that are about to be filled
@@ -54,14 +54,14 @@ module.exports = {
           pr -= 0.05;
           if(pr <= 0)
             break;
-          data.snakes[config.snake.id].map[loc[1]][loc[0]] += pr;
+          data.snakes[data.you].map[loc[1]][loc[0]] += pr;
         }
       }
     }
 
     ourDistances = ourDistances.filter(function(fd){
 
-      var s = data.snakes[config.snake.id];
+      var s = data.snakes[data.you];
       var map = [];
       // copy the map
       for(var y = 0; y < s.map.length; y++) {

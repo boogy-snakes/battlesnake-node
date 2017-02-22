@@ -33,6 +33,8 @@ module.exports = function(){
 		// no path found, choose an open direction?
 		if(path.length < 2) {
 			console.log("no path found! uh oh!")
+			console.log(current.x, current.y)
+			console.log(target.x, target.y)
 
 			dirs = [];
 
@@ -46,7 +48,7 @@ module.exports = function(){
 			if(current.y + 1  < map.length && map[current.y + 1][current.x] < 1) {
 				dirs.push({d:"south", v: map[current.y + 1][current.x]});
 			}
-			if(current.y - 1  < map.length && map[current.y - 1][current.x] < 1) {
+			if(current.y - 1  >= 0 && map[current.y - 1][current.x] < 1) {
 				dirs.push({d:"north", v: map[current.y - 1][current.x]});
 			}
 			dirs.push({d:"north", v: 1});

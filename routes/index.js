@@ -53,7 +53,7 @@ router.post(config.routes.move, function (req, res) {
 
     // Response data
     var response = {
-      move: post(data.snakes[config.snake.id].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
+      move: post(data.snakes[data.you].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
       taunt: config.snake.taunt.move
     };
 

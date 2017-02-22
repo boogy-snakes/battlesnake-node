@@ -4,7 +4,7 @@ var config = require('../config.json');
 module.exports = function(data) {
   var current = data.current;
   var pmap = data.pmap;
-  var snake = data.snakes[config.snake.id];
+  var snake = data.snakes[data.you];
 
   var distances = { n: 0, e: 0, s: 0, w: 0 };
   var paths = {n:[], e:[], s: [], w: []};
@@ -92,7 +92,7 @@ module.exports = function(data) {
       
       var options = [];
       for(var node of data.dfs) {
-        if(node[1].snakes.has(config.snake.id)){ 
+        if(node[1].snakes.has(data.you)){ 
           options.push(node[1]);
         }
       }

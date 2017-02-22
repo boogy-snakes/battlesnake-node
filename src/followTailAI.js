@@ -5,7 +5,7 @@ var toXY = require('./core').toXY;
 
 module.exports = function(data) {
 
-	var snake = data.snakes[config.snake.id];
+	var snake = data.snakes[data.you];
 
 	console.log(snake.coords);
 

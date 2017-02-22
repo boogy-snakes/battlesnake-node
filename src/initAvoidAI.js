@@ -5,7 +5,7 @@ module.exports = function(data) {
 
 	console.log("avoiding");
 
-	var snake = data.snakes[config.snake.id];
+	var snake = data.snakes[data.you];
 
 	var loc = toXY(snake.coords[0]);
 

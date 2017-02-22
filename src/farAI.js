@@ -3,7 +3,7 @@ var toXY = require('./core').toXY;
 var config = require('../config.json');
 
 module.exports = function(data) {
-	var snake = data.snakes[config.snake.id];
+	var snake = data.snakes[data.you];
 
 	var max = {x:0, y:0};
 	var maxl = 0;

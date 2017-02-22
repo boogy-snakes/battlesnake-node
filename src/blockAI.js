@@ -7,7 +7,7 @@ module.exports = function(data) {
 	
 
 	// advanced block
-	if(data.snakes[config.snake.id].health > 40) {
+	if(data.snakes[data.you].health > 40) {
 		console.log("advanced block")
 		// check conditions:
 		// * there are cut edges adjancent to our nodes
@@ -33,7 +33,7 @@ module.exports = function(data) {
 		var ours = [];
 		var oursNames = new Set();
 		for(var node of data.dfs) {
-			if(node[1].snakes.has(config.snake.id)) {
+			if(node[1].snakes.has(data.you)) {
 				ours.push({name:node[0], adj:new Set()});
 				oursNames.add(node[0]);
 			}
@@ -71,14 +71,14 @@ module.exports = function(data) {
 						}
 					}
 					console.log(snakes);
-					if(snakes.size > 0 + (snakes.has(config.snake.id) ? 1 : 0)){
+					if(snakes.size > 0 + (snakes.has(data.you) ? 1 : 0)){
 						node.adj.add(adj.name);
 					}
 
 				}
 				// its a leaf
 				if(adj.edges.length == 1) {
-					if(adj.snakes.size > 0 + (adj.snakes.has(config.snake.id) ? 1 : 0)) {
+					if(adj.snakes.size > 0 + (adj.snakes.has(data.you) ? 1 : 0)) {
 						node.adj.add(adj.name);
 					}
 				}
@@ -123,7 +123,7 @@ module.exports = function(data) {
 
 	var cuts = [];
 	for(var node of data.dfs) {
-		if(node[1].cut && node[1].members.length < 12 + (data.snakes[config.snake.id].coords.length /4) && node[1].snakes.has(config.snake.id)){ 
+		if(node[1].cut && node[1].members.length < 12 + (data.snakes[data.you].coords.length /4) && node[1].snakes.has(data.you)){ 
 			cuts.push(node[1]);
 		}
 	}
