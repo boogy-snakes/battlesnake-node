@@ -9,6 +9,8 @@ module.exports = function(data) {
   var distances = { n: 0, e: 0, s: 0, w: 0 };
   var paths = {n:[], e:[], s: [], w: []};
 
+  pmap[current.y][current.x] = 1;
+
   // Calculate north distance
   var x = current.x;
   var y = current.y;
@@ -72,6 +74,8 @@ module.exports = function(data) {
     }
   }
 
+  pmap[current.y][current.x] = 0;
+
   // sort to check the longest distances
   var sd = Object.keys(distances).sort(function(a,b){
     if(distances[a] > distances[b]) return -1;
@@ -88,7 +92,7 @@ module.exports = function(data) {
     throw "path lengths are equal, follow tail instead"
 
   // we might make a bad choice
-  } else if(distances[sd[0]] - distances[sd[1]] < 2 && distances[sd[0]] < 5) {
+  } else if(distances[sd[0]] - distances[sd[1]] < 10 ) {
       
       var options = [];
       for(var node of data.dfs) {
