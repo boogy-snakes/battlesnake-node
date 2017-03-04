@@ -34,7 +34,6 @@ function preprocessor(){
 			if(snakeData[id].coords.length > snakeData[longestSnake].coords.length){
 				longestSnake = id;
 			}
-			
 		}
 
 		data.snakes = snakeData;

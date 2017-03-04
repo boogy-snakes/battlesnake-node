@@ -1,5 +1,5 @@
 
-var findPath = require('./core').findPath;
+var findSafePath = require('./core').findSafePath;
 var toXY = require('./core').toXY;
 var config = require('../config.json');
 
@@ -14,7 +14,7 @@ module.exports = function(data) {
 	var minl = 99999999999;
 
 	for(var s of data.snakes) {
-		var path = findPath(snake.map, snake.coords[0], s.coords[0], 0.5);
+		var path = findSafePath(snake.map, snake.coords[0], s.coords[0], snake.coords[snake.coords.length - 1], 0.5);
 		if(path.length == 0) continue;
 
 		if(path.length < minl){

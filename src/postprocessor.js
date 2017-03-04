@@ -2,17 +2,13 @@
 //converts ai into a direction (runs pathfinding, returns a direction)
 
 var pf = require('pathfinding');
+var safeFinder = require('./core.js').safeFinder;
 
 module.exports = function(){
 
-	var finder = new pf.AStarFinder({
-		allowDiagonal: false,
-		dontCrossCorners: true,
-		heuristic: pf.Heuristic.chebyshev
-	});
-
-	return function(map, current, target, cutoff) {	
-		var grid = new pf.Grid(map[0].length, map.length); 
+	return function(map, current, target, safe, cutoff) {
+		map[safe.y][safe.x] = 0;
+		var grid = new pf.Grid(map[0].length, map.length);
 		for(var x = 0; x < map[0].length; x++) {
 			for(var y = 0; y < map.length; y++) {
 				if(map[y][x] > cutoff) {
@@ -28,7 +24,7 @@ module.exports = function(){
 		map[target.y][target.x] = "B";
 		console.log(map);
 
-		var path = finder.findPath(current.x, current.y, target.x, target.y, grid);
+		var path = safeFinder(current.x, current.y, target.x, target.y, safe.x, safe.y, grid);
 
 		// no path found, choose an open direction?
 		if(path.length < 2) {
@@ -38,7 +34,6 @@ module.exports = function(){
 
 			dirs = [];
 
-			
 			if(current.x + 1  < map[0].length && map[current.y][current.x + 1] < 1) {
 				dirs.push({d:"east", v: map[current.y][current.x + 1]});
 			}

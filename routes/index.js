@@ -6,6 +6,13 @@ var pre = require('../src/preprocessor.js');
 var ai = require('../src/topAI.js');
 var post = require('../src/postprocessor.js');
 
+var map_output = {
+  "north": "up",
+  "east": "right",
+  "west": "left",
+  "south": "down"
+};
+
 
 // Handle GET request to '/'
 router.get(config.routes.info, function (req, res) {
@@ -39,7 +46,8 @@ router.post(config.routes.move, function (req, res) {
 
     var input = req.body;
 
-    console.log('new request');
+
+    console.log('new request:',input);
 
     var data = pre(input);
 
@@ -51,14 +59,17 @@ router.post(config.routes.move, function (req, res) {
 
     console.log('ai run');
 
+    var snake = data.snakes[data.you];
+    var tail = snake.coords[snake.coords.length - 1];
+
     // Response data
     var response = {
-      move: post(data.snakes[data.you].map, data.current, data.target, data.cutoff), // one of: ["north", "east", "south", "west"]
+      move: map_output[post(data.snakes[data.you].map, data.current, data.target, {x:tail[0], y:tail[1]}, data.cutoff)], // one of: ["north", "east", "south", "west"]
       taunt: config.snake.taunt.move
     };
 
     console.log("current", data.current);
-    console.log(response.move, data.target);
+    console.log(map_output[response.move], data.target);
     //console.dir(data);
   }
   catch(e){

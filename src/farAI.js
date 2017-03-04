@@ -13,7 +13,7 @@ module.exports = function(data) {
 		for(var x = 0; x < data.width; x++) {
 			paths[y][x] = findPath(snake.map, snake.coords[0], [x,y], 0.3);
 			if(paths[y][x].length > maxl) {
-				max.x  = x;
+				max.x = x;
 				max.y = y;
 				maxl = paths[y][x].length;
 			}

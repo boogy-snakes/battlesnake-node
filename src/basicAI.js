@@ -1,5 +1,5 @@
 // basic ai, just finds the closest food
-var findPath = require('./core').findPath;
+var findSafePath = require('./core').findSafePath;
 var toXY = require('./core').toXY;
 var config = require('../config.json');
 
@@ -14,7 +14,13 @@ module.exports = {
       for(var id in data.snakes) {
 
         snake = data.snakes[id];
-        var path = findPath(snake.map, snake.coords[0], f, 0.5);
+        var path;
+        if(snake == data.snakes[data.you]) {
+          path = findPath(snake.map, snake.coords[0], f, 0.5);
+        }
+        else {
+          path = findSafePath(snake.map, snake.coords[0], f, snake.coords[snake.coords.length - 1], 0.5);
+        }
 
         if(path.length == distances[f].length) {
           console.log("path lengths equal")
@@ -46,7 +52,7 @@ module.exports = {
     for(var d in distances) {
       if(distances[d].snake == data.you) {
         ourDistances.push({dist: distances[d].length, loc:d.split(','), path: distances[d].path});
-      
+
       //make sure we don't go to ones that are about to be filled
       } else {
         pr = 0.4
@@ -58,52 +64,6 @@ module.exports = {
         }
       }
     }
-
-    ourDistances = ourDistances.filter(function(fd){
-
-      var s = data.snakes[data.you];
-      var map = [];
-      // copy the map
-      for(var y = 0; y < s.map.length; y++) {
-        map.push([]);
-        for(var x = 0; x < s.map[0].length; x++) {
-          map[y][x] = s.map[y][x];
-        }
-      }
-
-      var sCoords = s.coords.slice(0, fd.path.length - 2);
-      var futureLength = s.coords.length + 1;
-
-      for(var coord of sCoords) {
-        map[coord[1]][coord[0]] = 1;
-      }
-
-      var rev = Array.from(s.coords).reverse();
-      var slc = fd.path.slice(1);
-      rev.push(...slc);
-      console.log(rev);
-      console.log()
-      console.log( rev.length, futureLength, rev.length - futureLength);
-
-      var tail = rev[rev.length - futureLength];
-      console.log(tail);
-      // add the path we'll take
-      for(var i = 1; i < fd.path.length-2; i++) {
-        map[fd.path[i][1]][fd.path[i][0]] = 1;
-      }
-
-      map[tail[1]][tail[0]] = 0;
-
-      var pBack = findPath(map, fd.loc, tail, 0.5);
-
-      map[fd.loc[1]][fd.loc[0]] = "F"
-      map[tail[1]][tail[0]] = "T"
-
-      console.log(map)
-
-      return pBack.length;
-
-    })
 
     ourDistances = ourDistances.sort(function(a,b){
       if(a.dist > b.dist) return 1;
