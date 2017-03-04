@@ -49,7 +49,8 @@ router.post(config.routes.move, function (req, res) {
     var input = req.body;
 
 
-    console.log('new request:',input);
+    console.log('new request:');
+    console.dir(input);
 
     var data = pre(input);
 
@@ -105,15 +106,17 @@ router.post('//move', function (req, res) {
 
     var snake = data.snakes[data.you];
     var tail = snake.coords[snake.coords.length - 1];
+    var dir = map_output[post(data.snakes[data.you].map, data.current, data.target, {x:tail[0], y:tail[1]}, data.cutoff)];
+    console.log(dir);
 
     // Response data
     var response = {
-      move: map_output[post(data.snakes[data.you].map, data.current, data.target, {x:tail[0], y:tail[1]}, data.cutoff)], // one of: ["north", "east", "south", "west"]
+      move: dir, // one of: ["north", "east", "south", "west"]
       taunt: config.snake.taunt.move
     };
 
     console.log("current", data.current);
-    console.log(map_output[response.move], data.target);
+    console.log(response.move, map_output[response.move], data.target);
     //console.dir(data);
   }
   catch(e){
