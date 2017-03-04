@@ -18,8 +18,10 @@ var map_output = {
 router.get(config.routes.info, function (req, res) {
   // Response data
   var data = {
-    color: config.snake.color,
-    head_url: config.snake.head_url,
+    "color": "orngered",
+    "head_url": config.snake.head_url,
+    "head_type": "pixel",
+    "tail_type": "pixel"
   };
 
   return res.json(data);
