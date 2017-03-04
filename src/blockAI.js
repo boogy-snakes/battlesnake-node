@@ -7,7 +7,7 @@ var UnionFind = require('unionfind');
 module.exports = function(data) {
 
 	// advanced block
-	if(data.snakes[data.you].health > 40) {
+	if(data.snakes[data.you].health_points > 40) {
 		console.log("advanced block")
 		// check conditions:
 		// * there are cut edges adjancent to our nodes

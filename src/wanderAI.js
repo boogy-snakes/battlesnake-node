@@ -79,7 +79,7 @@ module.exports = function(data) {
     return 0;
   });
 
-  console.log(distances);
+  console.log(distances, sd);
 
   if(distances[sd[0]] < 2) throw "not much space to wander"
 
@@ -96,6 +96,7 @@ module.exports = function(data) {
           options.push(node[1]);
         }
       }
+      console.log("options:", options)
       if(options.length > 0) {
         options.sort(function(a,b){
           if(a.edges.length == b.edges.length){
@@ -108,6 +109,7 @@ module.exports = function(data) {
         return data;
       }
   }
+  console.log(sd);
 
   direction = sd[0];
 

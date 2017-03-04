@@ -25,7 +25,8 @@ router.get(config.routes.info, function (req, res) {
     "color": "orngered",
     "head_url": config.snake.head_url,
     "head_type": "pixel",
-    "tail_type": "pixel"
+    "tail_type": "pixel",
+    "name": "boogy time"
   };
 
   return res.json(data);
