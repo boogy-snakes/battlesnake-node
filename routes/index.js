@@ -10,7 +10,11 @@ var map_output = {
   "north": "up",
   "east": "right",
   "west": "left",
-  "south": "down"
+  "south": "down",
+  "up": "up",
+  "right": "right",
+  "left": "left",
+  "down": "down",
 };
 
 
