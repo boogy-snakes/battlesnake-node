@@ -10,9 +10,9 @@ var config = require('../config.json');
 
 module.exports = function(data){
 	
-	if(data.turn < 2) {
-		return initAvoid(data);
-	}
+	//if(data.turn < 2) {
+	//	return initAvoid(data);
+	//}
 
 	try {
 		
