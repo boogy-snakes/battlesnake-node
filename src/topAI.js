@@ -23,7 +23,7 @@ module.exports = function(data){
 		console.log(e.stack);
 		try{
 
-			if((data.snakes[data.you].health > 50 || data.snakes[data.you].coords.length > data.snakes[data.longest].coords.length - 3) && (data.snakes[data.you].health > 30) && (data.snakes[data.you].coords.length > 7))
+			if((data.snakes[data.you].health_points > 50 || data.snakes[data.you].coords.length > data.snakes[data.longest].coords.length - 3) && (data.snakes[data.you].health_points > 30) && (data.snakes[data.you].coords.length > 7))
 				throw "let's stay small"
 			
 			return food(data);
