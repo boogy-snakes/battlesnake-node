@@ -1,5 +1,6 @@
 // basic ai, just finds the closest food
 var findSafePath = require('./core').findSafePath;
+var findPath = require('./core').findPath;
 var toXY = require('./core').toXY;
 var config = require('../config.json');
 
