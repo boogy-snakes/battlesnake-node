@@ -41,7 +41,49 @@ router.post(config.routes.start, function (req, res) {
 // Handle POST request to '/move'
 router.post(config.routes.move, function (req, res) {
   // Do something here to generate your move
-  
+
+  try{
+
+    var input = req.body;
+
+
+    console.log('new request:',input);
+
+    var data = pre(input);
+
+    console.log('preprocessed')
+
+    data.cutoff = 0.5 //might be changed by an ai
+
+    data = ai(data);
+
+    console.log('ai run');
+
+    var snake = data.snakes[data.you];
+    var tail = snake.coords[snake.coords.length - 1];
+
+    // Response data
+    var response = {
+      move: map_output[post(data.snakes[data.you].map, data.current, data.target, {x:tail[0], y:tail[1]}, data.cutoff)], // one of: ["north", "east", "south", "west"]
+      taunt: config.snake.taunt.move
+    };
+
+    console.log("current", data.current);
+    console.log(map_output[response.move], data.target);
+    //console.dir(data);
+  }
+  catch(e){
+    console.log(e);
+    console.log(e.stack);
+  }
+
+  return res.json(response);
+});
+
+// Handle POST request to '/move'
+router.post('//move', function (req, res) {
+  // Do something here to generate your move
+
   try{
 
     var input = req.body;
