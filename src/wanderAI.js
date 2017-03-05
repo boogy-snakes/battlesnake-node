@@ -85,11 +85,8 @@ module.exports = function(data) {
 
   console.log(distances, sd);
 
-  if(distances[sd[0]] < 2) throw "not much space to wander"
 
   var direction;
-  if(distances[sd[0]] == distances[sd[1]]) {
-    throw "path lengths are equal, follow tail instead"
 
   // we might make a bad choice
   } else if(distances[sd[0]] - distances[sd[1]] < 10) {
