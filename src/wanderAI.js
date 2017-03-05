@@ -92,7 +92,7 @@ module.exports = function(data) {
     throw "path lengths are equal, follow tail instead"
 
   // we might make a bad choice
-  } else if(distances[sd[0]] - distances[sd[1]] < 10 ) {
+  } else if(distances[sd[0]] - distances[sd[1]] < 10) {
       
       var options = [];
       for(var node of data.dfs) {
@@ -103,10 +103,11 @@ module.exports = function(data) {
       console.log("options:", options)
       if(options.length > 0) {
         options.sort(function(a,b){
-          if(a.edges.length == b.edges.length){
-            return b.members.length - a.members.length;
+          if(a.members.length == b.members.length){
+            return b.edges.length - a.edges.length;
           }
-          return b.edges.length - a.edges.length;
+          return b.members.length - a.members.length;
+          
         });
         data.target = options[0].members[0];
         
