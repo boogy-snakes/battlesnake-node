@@ -89,7 +89,7 @@ module.exports = function(data) {
   var direction;
 
   // we might make a bad choice
-  } else if(distances[sd[0]] - distances[sd[1]] < 10) {
+  if(distances[sd[0]] - distances[sd[1]] < 10) {
       
       var options = [];
       for(var node of data.dfs) {
