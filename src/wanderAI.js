@@ -104,11 +104,12 @@ module.exports = function(data) {
             return b.edges.length - a.edges.length;
           }
           return b.members.length - a.members.length;
-          
         });
-        data.target = options[0].members[0];
-        
-        return data;
+        if(options[0].members.length > 1 && options[0].edges.length > 0) {
+          data.target = options[0].members[0];
+          console.log("using space, not tail");
+          return data;
+        }
       }
   }
   console.log(sd);

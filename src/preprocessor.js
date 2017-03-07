@@ -263,33 +263,6 @@ function preprocessor(){
 			}
 		}
 
-		// add the heads to the nodess they could be in
-		var head;
-		for(snake of snakes) {
-			head = toXY(snake.coords[0]);
-			// adjacent squares
-			if(head.x + 1 < map[0].length){
-				if(buffered[head.y][head.x + 1] != 1){
-					buffered[head.y][head.x + 1].snakes.add(snake.id);
-				}
-			}
-			if(head.x - 1 >= 0){
-				if(buffered[head.y][head.x - 1] != 1) {
-					buffered[head.y][head.x - 1].snakes.add(snake.id);
-				}
-			}
-			if(head.y + 1 < map.length){
-				if(buffered[head.y + 1][head.x] != 1) {
-					buffered[head.y + 1][head.x].snakes.add(snake.id);
-				}
-			}
-			if(head.y - 1 >= 0){
-				if(buffered[head.y - 1][head.x] != 1) {
-					buffered[head.y - 1][head.x].snakes.add(snake.id);
-				}
-			}
-		}
-
 		var edges = [];
 		var edgesMap = [];
 		for(j = 0; j < map.length; j++){
@@ -334,6 +307,42 @@ function preprocessor(){
 			node.edges.sort(function(a,b){a.name - b.name});
 		}
 
+		// add the buffered out grid points to the nearby node.
+		for(j = 0; j < map.length; j++){
+			for(i = 0; i < map[0].length; i++) {
+				nameBuffered(buff, map, buffered, i, j);
+			}
+		}
+
+		// add the heads to the nodess they could be in
+		var head;
+		for(snake of snakes) {
+			head = toXY(snake.coords[0]);
+			// adjacent squares
+			if(head.x + 1 < map[0].length){
+				if(buffered[head.y][head.x + 1] != 1){
+					buffered[head.y][head.x + 1].snakes.add(snake.id);
+				}
+			}
+			if(head.x - 1 >= 0){
+				if(buffered[head.y][head.x - 1] != 1) {
+					buffered[head.y][head.x - 1].snakes.add(snake.id);
+				}
+			}
+			if(head.y + 1 < map.length){
+				if(buffered[head.y + 1][head.x] != 1) {
+					buffered[head.y + 1][head.x].snakes.add(snake.id);
+				}
+			}
+			if(head.y - 1 >= 0){
+				if(buffered[head.y - 1][head.x] != 1) {
+					buffered[head.y - 1][head.x].snakes.add(snake.id);
+				}
+			}
+		}
+
+
+		// render the map for viewing
 		for(j = 0; j < map.length; j++){
 			for(i = 0; i < map[0].length; i++) {
 				buffered[j][i] = map[j][i];
@@ -343,6 +352,33 @@ function preprocessor(){
 		for(var node of nodes) {
 			for(mem of node.members) {
 				buffered[mem.y][mem.x] = node.name;
+			}
+		}
+
+		// add the heads to the nodess they could be in
+		var head;
+		for(snake of snakes) {
+			head = toXY(snake.coords[0]);
+			// adjacent squares
+			if(head.x + 1 < map[0].length){
+				if(buffered[head.y][head.x + 1] != 1){
+					buffered[head.y][head.x + 1].snakes.add(snake.id);
+				}
+			}
+			if(head.x - 1 >= 0){
+				if(buffered[head.y][head.x - 1] != 1) {
+					buffered[head.y][head.x - 1].snakes.add(snake.id);
+				}
+			}
+			if(head.y + 1 < map.length){
+				if(buffered[head.y + 1][head.x] != 1) {
+					buffered[head.y + 1][head.x].snakes.add(snake.id);
+				}
+			}
+			if(head.y - 1 >= 0){
+				if(buffered[head.y - 1][head.x] != 1) {
+					buffered[head.y - 1][head.x].snakes.add(snake.id);
+				}
 			}
 		}
 
@@ -366,6 +402,79 @@ function preprocessor(){
 		}
 		return {nodes: nodes, edges: edges, roots:roots};
 
+	}
+
+	function nameBuffered(buff, map, buffered, i, j) {
+		var left = i - buff >= 0 ? i - buff : 0;
+		var right = i + buff + 1 <= map[0].length ? i + buff + 1: map[0].length;
+		var above = j - buff >= 0 ? j - buff : 0;
+		var below = j + buff + 1 <= map.length ? j + buff + 1: map.length;
+
+		var buffed = [];
+		var buffedSet = new Set();
+		var possibilities = new Set();
+
+		if(map[j][i] == 0 && buffered[j][i] == null ) {
+			for(jj = above; jj < below; jj++) {
+				for(ii = left; ii < right; ii++) {
+					if(map[j][i] == 0 && buffered[jj][ii] != null) {
+						if(isBySnake(buff, map, ii, jj)) {
+							possibilities.add(buffered[jj][ii]);
+						} else {
+							buffedSet.add(buffered[jj][ii]);
+						}
+					} else if(map[j][i] == 0) {
+						buffed.push({x:ii,y:jj});
+					}
+				}
+			}
+		}
+
+		var possibilitiesList = [...possibilities];
+		var buffedSetList = [...buffedSet];
+		var recurse = false;
+		var chosenNode = null;
+
+		switch(possibilitiesList.length) {
+			case 0:
+				if(buffedSetList>0){
+					chosenNode = buffedSetList[0];
+				}
+				break;
+
+			case 1:
+				chosenNode = possibilitiesList[0];
+				break;
+
+			default:
+				chosenNode = possibilitiesList[0];
+				console.log("buffered could be more than one thing? how?")
+				break;
+		}
+
+		if(chosenNode != null) {
+			buffered[j][i] = chosenNode;
+			buffered[j][i].members.push({x:i,y:j});
+
+			for(var loc of buffed) {
+				nameBuffered(buff, map, buffered, loc.x, loc.y);
+			}
+		}
+	}
+
+	function isBySnake(buff, map, i, j) {
+		var left = i - buff >= 0 ? i - buff : 0;
+		var right = i + buff + 1 <= map[0].length ? i + buff + 1: map[0].length;
+		var above = j - buff >= 0 ? j - buff : 0;
+		var below = j + buff + 1 <= map.length ? j + buff + 1: map.length;
+		for(jj = above; jj < below; jj++) {
+			for(ii = left; ii < right; ii++) {
+				if(map[jj][ii] == 1) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	function dfs(graph) {
